@@ -1,0 +1,116 @@
+
+/home/trungpham/PROJECT/KLTN/firmware/program_uart_boot.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <start>:
+   0:	10000437          	lui	x8,0x10000
+   4:	00042823          	sw	x0,16(x8) # 10000010 <__global_pointer$+0xfffe6c0>
+   8:	00300293          	addi	x5,x0,3
+   c:	00542623          	sw	x5,12(x8)
+  10:	05200513          	addi	x10,x0,82
+  14:	128000ef          	jal	x1,13c <uart_putc>
+  18:	10c000ef          	jal	x1,124 <uart_getc>
+  1c:	04200293          	addi	x5,x0,66
+  20:	0e551c63          	bne	x10,x5,118 <boot_error>
+  24:	100000ef          	jal	x1,124 <uart_getc>
+  28:	04f00293          	addi	x5,x0,79
+  2c:	0e551663          	bne	x10,x5,118 <boot_error>
+  30:	0f4000ef          	jal	x1,124 <uart_getc>
+  34:	04f00293          	addi	x5,x0,79
+  38:	0e551063          	bne	x10,x5,118 <boot_error>
+  3c:	0e8000ef          	jal	x1,124 <uart_getc>
+  40:	05400293          	addi	x5,x0,84
+  44:	0c551a63          	bne	x10,x5,118 <boot_error>
+  48:	0dc000ef          	jal	x1,124 <uart_getc>
+  4c:	00050493          	addi	x9,x10,0
+  50:	0d4000ef          	jal	x1,124 <uart_getc>
+  54:	00851293          	slli	x5,x10,0x8
+  58:	0054e4b3          	or	x9,x9,x5
+  5c:	0a048e63          	beq	x9,x0,118 <boot_error>
+  60:	10000293          	addi	x5,x0,256
+  64:	0a92ea63          	bltu	x5,x9,118 <boot_error>
+  68:	0bc000ef          	jal	x1,124 <uart_getc>
+  6c:	00050913          	addi	x18,x10,0
+  70:	0b4000ef          	jal	x1,124 <uart_getc>
+  74:	00851293          	slli	x5,x10,0x8
+  78:	00596933          	or	x18,x18,x5
+  7c:	0a8000ef          	jal	x1,124 <uart_getc>
+  80:	01051293          	slli	x5,x10,0x10
+  84:	00596933          	or	x18,x18,x5
+  88:	09c000ef          	jal	x1,124 <uart_getc>
+  8c:	01851293          	slli	x5,x10,0x18
+  90:	00596933          	or	x18,x18,x5
+  94:	000109b7          	lui	x19,0x10
+  98:	09396063          	bltu	x18,x19,118 <boot_error>
+  9c:	40098293          	addi	x5,x19,1024 # 10400 <__global_pointer$+0xeab0>
+  a0:	06597c63          	bgeu	x18,x5,118 <boot_error>
+  a4:	00397293          	andi	x5,x18,3
+  a8:	06029863          	bne	x5,x0,118 <boot_error>
+  ac:	00048a13          	addi	x20,x9,0
+  b0:	00000a93          	addi	x21,x0,0
+
+000000b4 <payload_loop>:
+  b4:	070000ef          	jal	x1,124 <uart_getc>
+  b8:	00050313          	addi	x6,x10,0
+  bc:	00aa8ab3          	add	x21,x21,x10
+  c0:	064000ef          	jal	x1,124 <uart_getc>
+  c4:	00aa8ab3          	add	x21,x21,x10
+  c8:	00851393          	slli	x7,x10,0x8
+  cc:	00736333          	or	x6,x6,x7
+  d0:	054000ef          	jal	x1,124 <uart_getc>
+  d4:	00aa8ab3          	add	x21,x21,x10
+  d8:	01051393          	slli	x7,x10,0x10
+  dc:	00736333          	or	x6,x6,x7
+  e0:	044000ef          	jal	x1,124 <uart_getc>
+  e4:	00aa8ab3          	add	x21,x21,x10
+  e8:	01851393          	slli	x7,x10,0x18
+  ec:	00736333          	or	x6,x6,x7
+  f0:	0069a023          	sw	x6,0(x19)
+  f4:	00498993          	addi	x19,x19,4
+  f8:	fffa0a13          	addi	x20,x20,-1
+  fc:	fa0a1ce3          	bne	x20,x0,b4 <payload_loop>
+ 100:	0ffafa93          	andi	x21,x21,255
+ 104:	020000ef          	jal	x1,124 <uart_getc>
+ 108:	01551863          	bne	x10,x21,118 <boot_error>
+ 10c:	04b00513          	addi	x10,x0,75
+ 110:	02c000ef          	jal	x1,13c <uart_putc>
+ 114:	00090067          	jalr	x0,0(x18)
+
+00000118 <boot_error>:
+ 118:	04500513          	addi	x10,x0,69
+ 11c:	020000ef          	jal	x1,13c <uart_putc>
+
+00000120 <boot_error_loop>:
+ 120:	0000006f          	jal	x0,120 <boot_error_loop>
+
+00000124 <uart_getc>:
+ 124:	00842283          	lw	x5,8(x8)
+ 128:	0022f293          	andi	x5,x5,2
+ 12c:	fe028ce3          	beq	x5,x0,124 <uart_getc>
+ 130:	00442503          	lw	x10,4(x8)
+ 134:	0ff57513          	andi	x10,x10,255
+ 138:	00008067          	jalr	x0,0(x1)
+
+0000013c <uart_putc>:
+ 13c:	00842283          	lw	x5,8(x8)
+ 140:	0012f293          	andi	x5,x5,1
+ 144:	fe028ce3          	beq	x5,x0,13c <uart_putc>
+ 148:	00a42023          	sw	x10,0(x8)
+ 14c:	00008067          	jalr	x0,0(x1)
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	1941                	.insn	2, 0x1941
+   2:	0000                	.insn	2, 0x0000
+   4:	7200                	.insn	2, 0x7200
+   6:	7369                	.insn	2, 0x7369
+   8:	01007663          	bgeu	x0,x16,14 <start+0x14>
+   c:	0000000f          	fence	unknown,unknown
+  10:	7205                	.insn	2, 0x7205
+  12:	3376                	.insn	2, 0x3376
+  14:	6932                	.insn	2, 0x6932
+  16:	7032                	.insn	2, 0x7032
+  18:	0031                	.insn	2, 0x0031

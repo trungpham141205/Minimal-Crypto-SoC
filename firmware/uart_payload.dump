@@ -1,0 +1,99 @@
+
+/home/trungpham/PROJECT/KLTN/firmware/uart_payload.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010000 <start>:
+   10000:	00000f93          	addi	x31,x0,0
+   10004:	20000537          	lui	x10,0x20000
+   10008:	001122b7          	lui	x5,0x112
+   1000c:	23328293          	addi	x5,x5,563 # 112233 <__global_pointer$+0x100927>
+   10010:	00552823          	sw	x5,16(x10) # 20000010 <__global_pointer$+0x1ffee704>
+   10014:	445562b7          	lui	x5,0x44556
+   10018:	67728293          	addi	x5,x5,1655 # 44556677 <__global_pointer$+0x44544d6b>
+   1001c:	00552a23          	sw	x5,20(x10)
+   10020:	8899b2b7          	lui	x5,0x8899b
+   10024:	abb28293          	addi	x5,x5,-1349 # 8899aabb <__global_pointer$+0x889891af>
+   10028:	00552c23          	sw	x5,24(x10)
+   1002c:	ccddf2b7          	lui	x5,0xccddf
+   10030:	eff28293          	addi	x5,x5,-257 # ccddeeff <__global_pointer$+0xccdcd5f3>
+   10034:	00552e23          	sw	x5,28(x10)
+   10038:	000102b7          	lui	x5,0x10
+   1003c:	20328293          	addi	x5,x5,515 # 10203 <fail_loop+0xfb>
+   10040:	02552023          	sw	x5,32(x10)
+   10044:	040502b7          	lui	x5,0x4050
+   10048:	60728293          	addi	x5,x5,1543 # 4050607 <__global_pointer$+0x403ecfb>
+   1004c:	02552223          	sw	x5,36(x10)
+   10050:	080912b7          	lui	x5,0x8091
+   10054:	a0b28293          	addi	x5,x5,-1525 # 8090a0b <__global_pointer$+0x807f0ff>
+   10058:	02552423          	sw	x5,40(x10)
+   1005c:	0c0d12b7          	lui	x5,0xc0d1
+   10060:	e0f28293          	addi	x5,x5,-497 # c0d0e0f <__global_pointer$+0xc0bf503>
+   10064:	02552623          	sw	x5,44(x10)
+   10068:	101112b7          	lui	x5,0x10111
+   1006c:	21328293          	addi	x5,x5,531 # 10111213 <__global_pointer$+0x100ff907>
+   10070:	02552823          	sw	x5,48(x10)
+   10074:	141512b7          	lui	x5,0x14151
+   10078:	61728293          	addi	x5,x5,1559 # 14151617 <__global_pointer$+0x1413fd0b>
+   1007c:	02552a23          	sw	x5,52(x10)
+   10080:	181922b7          	lui	x5,0x18192
+   10084:	a1b28293          	addi	x5,x5,-1509 # 18191a1b <__global_pointer$+0x1818010f>
+   10088:	02552c23          	sw	x5,56(x10)
+   1008c:	1c1d22b7          	lui	x5,0x1c1d2
+   10090:	e1f28293          	addi	x5,x5,-481 # 1c1d1e1f <__global_pointer$+0x1c1c0513>
+   10094:	02552e23          	sw	x5,60(x10)
+   10098:	00100293          	addi	x5,x0,1
+   1009c:	00552023          	sw	x5,0(x10)
+
+000100a0 <poll_aes>:
+   100a0:	00452303          	lw	x6,4(x10)
+   100a4:	00237313          	andi	x6,x6,2
+   100a8:	fe030ce3          	beq	x6,x0,100a0 <poll_aes>
+   100ac:	04052583          	lw	x11,64(x10)
+   100b0:	04b02023          	sw	x11,64(x0) # 40 <start-0xffc0>
+   100b4:	8ea2b637          	lui	x12,0x8ea2b
+   100b8:	7ca60613          	addi	x12,x12,1994 # 8ea2b7ca <__global_pointer$+0x8ea19ebe>
+   100bc:	04c59463          	bne	x11,x12,10104 <fail>
+   100c0:	04452583          	lw	x11,68(x10)
+   100c4:	04b02223          	sw	x11,68(x0) # 44 <start-0xffbc>
+   100c8:	51674637          	lui	x12,0x51674
+   100cc:	5bf60613          	addi	x12,x12,1471 # 516745bf <__global_pointer$+0x51662cb3>
+   100d0:	02c59a63          	bne	x11,x12,10104 <fail>
+   100d4:	04852583          	lw	x11,72(x10)
+   100d8:	04b02423          	sw	x11,72(x0) # 48 <start-0xffb8>
+   100dc:	eafc5637          	lui	x12,0xeafc5
+   100e0:	99060613          	addi	x12,x12,-1648 # eafc4990 <__global_pointer$+0xeafb3084>
+   100e4:	02c59063          	bne	x11,x12,10104 <fail>
+   100e8:	04c52583          	lw	x11,76(x10)
+   100ec:	04b02623          	sw	x11,76(x0) # 4c <start-0xffb4>
+   100f0:	4b496637          	lui	x12,0x4b496
+   100f4:	08960613          	addi	x12,x12,137 # 4b496089 <__global_pointer$+0x4b48477d>
+   100f8:	00c59663          	bne	x11,x12,10104 <fail>
+
+000100fc <pass>:
+   100fc:	00100f93          	addi	x31,x0,1
+
+00010100 <pass_loop>:
+   10100:	0000006f          	jal	x0,10100 <pass_loop>
+
+00010104 <fail>:
+   10104:	00200f93          	addi	x31,x0,2
+
+00010108 <fail_loop>:
+   10108:	0000006f          	jal	x0,10108 <fail_loop>
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	1941                	.insn	2, 0x1941
+   2:	0000                	.insn	2, 0x0000
+   4:	7200                	.insn	2, 0x7200
+   6:	7369                	.insn	2, 0x7369
+   8:	01007663          	bgeu	x0,x16,14 <start-0xffec>
+   c:	0000000f          	fence	unknown,unknown
+  10:	7205                	.insn	2, 0x7205
+  12:	3376                	.insn	2, 0x3376
+  14:	6932                	.insn	2, 0x6932
+  16:	7032                	.insn	2, 0x7032
+  18:	0031                	.insn	2, 0x0031

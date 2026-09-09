@@ -1,0 +1,2 @@
+2 9 l1_icache 4 fast 50 /home/trungpham/PROJECT/KLTN/sim/tb_l1_icache/work 0 0 131072 0 317 0
+1 12 tb_l1_icache 4 fast 50 /home/trungpham/PROJECT/KLTN/sim/tb_l1_icache/work 0 0 0 0 306 0

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AES-256 Module Architecture</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fff; color: #111; font-family: Arial, Helvetica, sans-serif; }
+    main { max-width: 1700px; margin: 0 auto; padding: 24px; }
+    .frame { overflow: auto; border: 1px solid #777; }
+    svg { display: block; width: 100%; min-width: 1200px; height: auto; background: #fff; }
+    text { fill: #111; font-family: Consolas, "Courier New", monospace; }
+    .module { fill: #fff; stroke: #111; stroke-width: 1.5; }
+    .top { fill: #fff; stroke: #111; stroke-width: 2.2; }
+    .name { font-size: 15px; font-weight: 700; }
+    .topname { font-size: 19px; font-weight: 700; }
+    .wire { fill: none; stroke: #111; stroke-width: 1.6; marker-end: url(#arrow); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="frame">
+      <svg viewBox="0 0 1640 900" role="img" aria-label="Complete AES-256 RTL module hierarchy and connection order">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0 0L8 4L0 8z" fill="#111"/>
+          </marker>
+        </defs>
+
+        <rect x="25" y="25" width="1590" height="850" rx="6" class="top"/>
+        <text x="50" y="60" class="topname">aes256_core</text>
+
+        <rect x="60" y="105" width="420" height="690" rx="5" class="module"/>
+        <text x="85" y="138" class="name">aes256_key_schedule</text>
+        <rect x="105" y="225" width="330" height="400" rx="5" class="module"/>
+        <text x="270" y="260" text-anchor="middle" class="name">aes256_key_expand_block</text>
+        <rect x="165" y="385" width="210" height="100" rx="5" class="module"/>
+        <text x="270" y="441" text-anchor="middle" class="name">aes_sbox</text>
+
+        <rect x="530" y="105" width="500" height="690" rx="5" class="module"/>
+        <text x="555" y="138" class="name">aes_round</text>
+        <rect x="585" y="190" width="390" height="150" rx="5" class="module"/>
+        <text x="780" y="222" text-anchor="middle" class="name">aes_subbytes</text>
+        <rect x="680" y="255" width="200" height="58" rx="4" class="module"/>
+        <text x="780" y="290" text-anchor="middle" class="name">aes_sbox</text>
+        <rect x="585" y="390" width="390" height="75" rx="5" class="module"/>
+        <text x="780" y="434" text-anchor="middle" class="name">aes_shiftrows</text>
+        <rect x="585" y="515" width="390" height="75" rx="5" class="module"/>
+        <text x="780" y="559" text-anchor="middle" class="name">aes_mixcolumns</text>
+        <rect x="585" y="640" width="390" height="75" rx="5" class="module"/>
+        <text x="780" y="684" text-anchor="middle" class="name">aes_addroundkey</text>
+        <path d="M780 340V390M780 465V515M780 590V640" class="wire"/>
+
+        <rect x="1080" y="105" width="500" height="690" rx="5" class="module"/>
+        <text x="1105" y="138" class="name">aes_roundlast</text>
+        <rect x="1135" y="190" width="390" height="150" rx="5" class="module"/>
+        <text x="1330" y="222" text-anchor="middle" class="name">aes_subbytes</text>
+        <rect x="1230" y="255" width="200" height="58" rx="4" class="module"/>
+        <text x="1330" y="290" text-anchor="middle" class="name">aes_sbox</text>
+        <rect x="1135" y="440" width="390" height="75" rx="5" class="module"/>
+        <text x="1330" y="484" text-anchor="middle" class="name">aes_shiftrows</text>
+        <rect x="1135" y="640" width="390" height="75" rx="5" class="module"/>
+        <text x="1330" y="684" text-anchor="middle" class="name">aes_addroundkey</text>
+        <path d="M1330 340V440M1330 515V640" class="wire"/>
+
+        <path d="M480 165H505V750H780V715" class="wire"/>
+        <path d="M480 165H1055V750H1330V715" class="wire"/>
+      </svg>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1183 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+!s11f vlog 2025.2 2025.05, May 31 2025
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z2 d/home/trungpham/PROJECT/KLTN
+T_opt
+!i145 1
+!i144 0
+Z3 !s110 1788698100
+Ve6hH1aTGV>=89nQYZd[Tg2
+04 16 4 work tb_soc_sram_copy fast 0
+=1-14ac606edb59-6a9d5df4-68f69-1004f
+R1
+!s12f OEM100
+!s12b OEM100
+!s124 OEM10U483 
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work +acc
+Z4 tCvgOpt 0
+n@_opt
+OL;O;2025.2;82
+vaes_add_round_key
+Z5 2AXI/axi_full_if.sv|RV32I_Single_Cycle/SRAM1RW256x32.v|RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv|RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv|RV32I_Single_Cycle/alu.sv|RV32I_Single_Cycle/alu_src_a_mux.sv|RV32I_Single_Cycle/alu_src_b_mux.sv|RV32I_Single_Cycle/branch_unit.sv|RV32I_Single_Cycle/control_unit.sv|RV32I_Single_Cycle/immediate_generator.sv|RV32I_Single_Cycle/instruction_memory.sv|RV32I_Single_Cycle/instruction_fetch_router.sv|RV32I_Single_Cycle/pc_adder.sv|RV32I_Single_Cycle/pc_imm.sv|RV32I_Single_Cycle/program_counter.sv|RV32I_Single_Cycle/register_file.sv|RV32I_Single_Cycle/write_back_mux.sv|RV32I_Single_Cycle/risc_top.sv|UART/baud_gen.sv|UART/rx_sync.sv|UART/uart_tx.sv|UART/uart_rx.sv|UART/uart_core.sv|AES/rtl/aes_sbox.sv|AES/rtl/aes_sub_bytes.sv|AES/rtl/aes_shift_rows.sv|AES/rtl/aes_mix_columns.sv|AES/rtl/aes_add_round_key.sv|AES/rtl/aes_rot_word.sv|AES/rtl/aes_sub_word.sv|AES/rtl/aes_key_expand_step.sv|AES/rtl/aes_key_schedule.sv|AES/rtl/aes_round.sv|AES/rtl/aes_round_last.sv|AES/rtl/aes_cipher_top.sv|AXI/cpu_axi_request_arbiter.sv|AXI/axi_master_wrapper.sv|AXI/axi_instruction_sram_slave.sv|AXI/axi_shared_sram_slave.sv|AXI/axi_sram_controller.sv|AXI/uart_axi_slave.sv|AXI/aes_axi_slave.sv|AXI/axi_interconnect_1m4s.sv|soc_top.sv
+Z6 DXx6 sv_std 3 std 0 22 @5XbY]_OacJl=`ToSm<M^0
+R3
+!i10b 1
+!s100 JAf<Gzb>N7c6Gn6geQ5Oa1
+I?UXBVKme2X_CNW2R1i0?o3
+S1
+R2
+Z7 w1788436987
+8AES/rtl/aes_add_round_key.sv
+FAES/rtl/aes_add_round_key.sv
+!i122 4
+L0 1 11
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2025.2;82
+r1
+!s85 0
+31
+Z10 !s108 1788698100.000000
+Z11 !s107 soc_top.sv|AXI/axi_interconnect_1m4s.sv|AXI/aes_axi_slave.sv|AXI/uart_axi_slave.sv|AXI/axi_sram_controller.sv|AXI/axi_shared_sram_slave.sv|AXI/axi_instruction_sram_slave.sv|AXI/axi_master_wrapper.sv|AXI/cpu_axi_request_arbiter.sv|AES/rtl/aes_cipher_top.sv|AES/rtl/aes_round_last.sv|AES/rtl/aes_round.sv|AES/rtl/aes_key_schedule.sv|AES/rtl/aes_key_expand_step.sv|AES/rtl/aes_sub_word.sv|AES/rtl/aes_rot_word.sv|AES/rtl/aes_add_round_key.sv|AES/rtl/aes_mix_columns.sv|AES/rtl/aes_shift_rows.sv|AES/rtl/aes_sub_bytes.sv|AES/rtl/aes_sbox.sv|UART/uart_core.sv|UART/uart_rx.sv|UART/uart_tx.sv|UART/rx_sync.sv|UART/baud_gen.sv|RV32I_Single_Cycle/risc_top.sv|RV32I_Single_Cycle/write_back_mux.sv|RV32I_Single_Cycle/register_file.sv|RV32I_Single_Cycle/program_counter.sv|RV32I_Single_Cycle/pc_imm.sv|RV32I_Single_Cycle/pc_adder.sv|RV32I_Single_Cycle/instruction_fetch_router.sv|RV32I_Single_Cycle/instruction_memory.sv|RV32I_Single_Cycle/immediate_generator.sv|RV32I_Single_Cycle/control_unit.sv|RV32I_Single_Cycle/branch_unit.sv|RV32I_Single_Cycle/alu_src_b_mux.sv|RV32I_Single_Cycle/alu_src_a_mux.sv|RV32I_Single_Cycle/alu.sv|RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv|RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv|RV32I_Single_Cycle/SRAM1RW256x32.v|AXI/axi_full_if.sv|
+Z12 !s90 -sv|-work|work|-f|filelist_soc.f|
+!i113 0
+Z13 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R4
+vaes_axi_slave
+R5
+R6
+R3
+!i10b 1
+!s100 Nj0C:d^G57`hzWekH:2RL3
+I7gSDX`c<GRGmIP:cZ6Kjl3
+S1
+R2
+w1788598353
+8AXI/aes_axi_slave.sv
+FAXI/aes_axi_slave.sv
+!i122 4
+L0 1 258
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_cipher_top
+R5
+R6
+R3
+!i10b 1
+!s100 jdz7R:Y`SlAn29MI=VRg[1
+I1GhH2HjJJHdkB`:mF6RK60
+S1
+R2
+w1788462994
+8AES/rtl/aes_cipher_top.sv
+FAES/rtl/aes_cipher_top.sv
+!i122 4
+L0 1 73
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_key_expand_step
+R5
+R6
+R3
+!i10b 1
+!s100 j>dCHojf`IWCcXF6iBO<33
+IRMC0Rhe]]PUfVF=F5VRAW2
+S1
+R2
+Z14 w1788437015
+8AES/rtl/aes_key_expand_step.sv
+FAES/rtl/aes_key_expand_step.sv
+!i122 4
+L0 1 56
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_key_schedule
+R5
+R6
+R3
+!i10b 1
+!s100 `FgZ`[XnCF>]lB[S_BkU=3
+I<TFhKS:9TO;P98MVHNCi>1
+S1
+R2
+w1788462833
+8AES/rtl/aes_key_schedule.sv
+FAES/rtl/aes_key_schedule.sv
+!i122 4
+L0 1 71
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_mix_columns
+R5
+R6
+R3
+!i10b 1
+!s100 =N4<Yo3fb;F[Q8Wj:e:^c3
+Ib:c2WmzL:>RAI;gkL2mL>3
+S1
+R2
+R14
+8AES/rtl/aes_mix_columns.sv
+FAES/rtl/aes_mix_columns.sv
+!i122 4
+L0 1 58
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_rot_word
+R5
+R6
+R3
+!i10b 1
+!s100 O[eC[YW8o]Ylled`7mJJf1
+I8k4ZeEHbYNdnb32LS_G1C3
+S1
+R2
+R7
+8AES/rtl/aes_rot_word.sv
+FAES/rtl/aes_rot_word.sv
+!i122 4
+Z15 L0 1 10
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_round
+R5
+R6
+R3
+!i10b 1
+!s100 F8mU7>`fUJ:R?P9H]@J<[1
+Id^kzUX9EL63>RXL24H`hn2
+S1
+R2
+Z16 w1788437032
+8AES/rtl/aes_round.sv
+FAES/rtl/aes_round.sv
+!i122 4
+Z17 L0 1 32
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_round_last
+R5
+R6
+R3
+!i10b 1
+!s100 >n<ndRB45QlPRAij1^D_`0
+IcG^>J7A6;42f2M_3hP;1o0
+S1
+R2
+R16
+8AES/rtl/aes_round_last.sv
+FAES/rtl/aes_round_last.sv
+!i122 4
+Z18 L0 1 26
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_sbox
+R5
+R6
+R3
+!i10b 1
+!s100 0WnI?WDG_RdLX4=Z<Xbld0
+I69]hJIR:bGo8[zDAYFKSk3
+S1
+R2
+Z19 w1788436988
+8AES/rtl/aes_sbox.sv
+FAES/rtl/aes_sbox.sv
+!i122 4
+L0 1 301
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_shift_rows
+R5
+R6
+R3
+!i10b 1
+!s100 W5R[FM[4V_X9OH;gFmkP^2
+I9=DBheoTlCI93EUZMOFGI2
+S1
+R2
+R19
+8AES/rtl/aes_shift_rows.sv
+FAES/rtl/aes_shift_rows.sv
+!i122 4
+R17
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_sub_bytes
+R5
+R6
+R3
+!i10b 1
+!s100 eY5Vn?OE?5kiYZMPR::6`1
+IV;>>BE6[EMkW?54bm<QbI3
+S1
+R2
+R19
+8AES/rtl/aes_sub_bytes.sv
+FAES/rtl/aes_sub_bytes.sv
+!i122 4
+Z20 L0 1 13
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaes_sub_word
+R5
+R6
+R3
+!i10b 1
+!s100 d3ak[gCWo]mbjl[S<?zo<0
+I3l5n<@_mMBZk:OXbR^KbC1
+S1
+R2
+R19
+8AES/rtl/aes_sub_word.sv
+FAES/rtl/aes_sub_word.sv
+!i122 4
+R20
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+valu
+R5
+R6
+R3
+!i10b 1
+!s100 ]i=z=?NR5EQnAoIo39RXX3
+IWGXL7_@I1A<S]KHMHl[141
+S1
+R2
+Z21 w1788598304
+8RV32I_Single_Cycle/alu.sv
+FRV32I_Single_Cycle/alu.sv
+!i122 4
+L0 1 27
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+valu_src_a_mux
+R5
+R6
+R3
+!i10b 1
+!s100 dn^bgl_TjUW09MJKz]zEJ1
+I]GTQS[lDSa3U606c6El=o1
+S1
+R2
+R21
+8RV32I_Single_Cycle/alu_src_a_mux.sv
+FRV32I_Single_Cycle/alu_src_a_mux.sv
+!i122 4
+R15
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+valu_src_b_mux
+R5
+R6
+R3
+!i10b 1
+!s100 _?[lI0E_Gz]FFefZ>Yla70
+I5k@V85Xh3EZzQD5DTllMP1
+S1
+R2
+R21
+8RV32I_Single_Cycle/alu_src_b_mux.sv
+FRV32I_Single_Cycle/alu_src_b_mux.sv
+!i122 4
+R15
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+Yaxi_full_if
+R5
+R6
+R3
+!i10b 1
+!s100 ;564=4XTV5BIP<=8l5>1h3
+I>J10]VJlknPjz>noGVdKD1
+S1
+R2
+w1788597908
+8AXI/axi_full_if.sv
+FAXI/axi_full_if.sv
+!i122 4
+L0 1 0
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaxi_instruction_sram_slave
+R5
+R6
+R3
+!i10b 1
+!s100 SnQWj68fO7dk4]e9V_G[B0
+I3VeHL[<8DzIKCkVA1VoHU3
+S1
+R2
+w1788693734
+8AXI/axi_instruction_sram_slave.sv
+FAXI/axi_instruction_sram_slave.sv
+!i122 4
+L0 1 36
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaxi_interconnect_1m4s
+R5
+R6
+R3
+!i10b 1
+!s100 =g;hGiGk@3`^QLSQUOlj>2
+IR]1JRle<T^zFn<kzcR@HF1
+S1
+R2
+w1788693939
+8AXI/axi_interconnect_1m4s.sv
+FAXI/axi_interconnect_1m4s.sv
+!i122 4
+L0 1 330
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaxi_master_wrapper
+R5
+R6
+R3
+!i10b 1
+!s100 5R5J`i;B?K19YLOhU0;U63
+Im1ia[F=9?`[CdVN`=5JVn0
+S1
+R2
+w1788604288
+8AXI/axi_master_wrapper.sv
+FAXI/axi_master_wrapper.sv
+!i122 4
+L0 1 319
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaxi_shared_sram_slave
+R5
+R6
+R3
+!i10b 1
+!s100 0if?LHlFUWAdn8P`fc7:a2
+I083fik8YKWG^<JU^[46@Z1
+S1
+R2
+w1788693744
+8AXI/axi_shared_sram_slave.sv
+FAXI/axi_shared_sram_slave.sv
+!i122 4
+L0 1 35
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vaxi_sram_controller
+R5
+R6
+R3
+!i10b 1
+!s100 hE0J8:IGAH@6Do@<CoCN^1
+IYPS5m[[@D]XAzTQan0<6I2
+S1
+R2
+w1788693670
+8AXI/axi_sram_controller.sv
+FAXI/axi_sram_controller.sv
+!i122 4
+L0 1 294
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vbaud_gen
+R5
+R6
+R3
+!i10b 1
+!s100 9=RFnCHaXmWnL97g1?iFm1
+IP@6_dXkMeaJj_9lXn?K3;0
+S1
+R2
+w1788679177
+8UART/baud_gen.sv
+FUART/baud_gen.sv
+!i122 4
+L0 1 60
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vbranch_unit
+R5
+R6
+R3
+!i10b 1
+!s100 P@mh>=AS22lKS1bVS;@Xe1
+IdA5E?Q?jG4dn0@9mK[;n^0
+S1
+R2
+R21
+8RV32I_Single_Cycle/branch_unit.sv
+FRV32I_Single_Cycle/branch_unit.sv
+!i122 4
+R17
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vcontrol_unit
+R5
+R6
+R3
+!i10b 1
+!s100 iS5ARDoDKV1gdGd7z78^B3
+IQlj^[mMzV8cYPDIh7f9=Q0
+S1
+R2
+R21
+8RV32I_Single_Cycle/control_unit.sv
+FRV32I_Single_Cycle/control_unit.sv
+!i122 4
+L0 1 101
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vcpu_axi_request_arbiter
+R5
+R6
+R3
+!i10b 1
+!s100 8CE]?9@:>>cj^7P<a7ch<3
+I2WK_<bGJ:nZC_WGh?<DZZ1
+S1
+R2
+w1788697585
+8AXI/cpu_axi_request_arbiter.sv
+FAXI/cpu_axi_request_arbiter.sv
+!i122 4
+L0 1 143
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vimmediate_generator
+R5
+R6
+R3
+!i10b 1
+!s100 SiQEl?Q]Y@LXZkcRHfg8d3
+I0Q?C6gT4Obh[n_WXz:R1b2
+S1
+R2
+R21
+8RV32I_Single_Cycle/immediate_generator.sv
+FRV32I_Single_Cycle/immediate_generator.sv
+!i122 4
+R17
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vinstruction_fetch_router
+R5
+R6
+R3
+!i10b 1
+!s100 z@OflA@8`QMIFDhD10d`93
+IJ5W0:ZU>Wn:X^0_g3[mn90
+S1
+R2
+w1788697416
+8RV32I_Single_Cycle/instruction_fetch_router.sv
+FRV32I_Single_Cycle/instruction_fetch_router.sv
+!i122 4
+L0 1 55
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vinstruction_memory
+R5
+R6
+R3
+!i10b 1
+!s100 z`7J;24k:lgB2S9S45i0[3
+IJf]L76>gS=WhRXiNkXTSK2
+S1
+R2
+w1788679333
+8RV32I_Single_Cycle/instruction_memory.sv
+FRV32I_Single_Cycle/instruction_memory.sv
+!i122 4
+L0 1 16
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vinstruction_sram_256x32_wrapper
+R5
+R6
+R3
+!i10b 1
+!s100 jzf3Y8fb;XIUo7^=z6DW[0
+I^?>0XH6c:Rlj[6Ue^]kTT0
+S1
+R2
+w1788691451
+8RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv
+FRV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv
+!i122 4
+Z22 L0 1 29
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vpc_adder
+R5
+R6
+R3
+!i10b 1
+!s100 [9j1id@zH9S=c3n>=?D_12
+ITCbmS^3ke4aSRIEQG=V1D1
+S1
+R2
+R21
+8RV32I_Single_Cycle/pc_adder.sv
+FRV32I_Single_Cycle/pc_adder.sv
+!i122 4
+R15
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vpc_imm
+R5
+R6
+R3
+!i10b 1
+!s100 QzklzSU6RMW:NVR8R[YTg2
+IOoWQDIThPFHjb61hzNj>23
+S1
+R2
+R21
+8RV32I_Single_Cycle/pc_imm.sv
+FRV32I_Single_Cycle/pc_imm.sv
+!i122 4
+L0 1 22
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vprogram_counter
+R5
+R6
+R3
+!i10b 1
+!s100 LYT8>9Qhb6mD=>HTLl@MF1
+IlK1^16@Q9zgBk7iHc61Qh2
+S1
+R2
+R21
+8RV32I_Single_Cycle/program_counter.sv
+FRV32I_Single_Cycle/program_counter.sv
+!i122 4
+Z23 L0 1 21
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vregister_file
+R5
+R6
+R3
+!i10b 1
+!s100 @6Gz4a7VZ95WHJR2[_D:T0
+IROlKS2A0m8gXF5EN5aBRV0
+S1
+R2
+R21
+8RV32I_Single_Cycle/register_file.sv
+FRV32I_Single_Cycle/register_file.sv
+!i122 4
+R18
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vrisc_top
+R5
+R6
+R3
+!i10b 1
+!s100 FV6fhMT]B8@a5XbYQaX^V1
+I`lCFjzSlL=UiTVR4PfW7P1
+S1
+R2
+w1788697482
+8RV32I_Single_Cycle/risc_top.sv
+FRV32I_Single_Cycle/risc_top.sv
+!i122 4
+L0 1 271
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vrx_sync
+R5
+R6
+R3
+!i10b 1
+!s100 KHH1[1zZGHZWDJ[@E3Xlc0
+IQXjGPJ?AcoJDcZYQzg5P=3
+S1
+R2
+Z24 w1788596847
+8UART/rx_sync.sv
+FUART/rx_sync.sv
+!i122 4
+R23
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vshared_sram_256x32_wrapper
+R5
+R6
+R3
+!i10b 1
+!s100 QDiXRJeXiAkHECLQ[fznX0
+IC[0SDIW70il?<XkX3@YG;1
+S1
+R2
+w1788691438
+8RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv
+FRV32I_Single_Cycle/shared_sram_256x32_wrapper.sv
+!i122 4
+R22
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vsoc_top
+R5
+R6
+R3
+!i10b 1
+!s100 cW590K<l1U_B@_86aPGkU0
+IIgBEUOXMN^CfN6UIUZQf12
+S1
+R2
+w1788697603
+8soc_top.sv
+Fsoc_top.sv
+!i122 4
+L0 1 296
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vSRAM1RW256x32
+R5
+R6
+R3
+!i10b 1
+!s100 E8[l<U63NYZmV_b>Tj_<=2
+InJ`hBdJ?JoTm7K0k:]6?_2
+S1
+R2
+Z25 w1788677911
+Z26 8RV32I_Single_Cycle/SRAM1RW256x32.v
+Z27 FRV32I_Single_Cycle/SRAM1RW256x32.v
+!i122 4
+L0 7 43
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+n@s@r@a@m1@r@w256x32
+vSRAM1RW256x32_1bit
+R5
+R6
+R3
+!i10b 1
+!s100 a0hALm3:XYeY^Em`X:c:=2
+IJ:JM6[W>1namRjLE]JafT2
+S1
+R2
+R25
+R26
+R27
+!i122 4
+L0 52 37
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+n@s@r@a@m1@r@w256x32_1bit
+vtb_soc_sram_copy
+2TB/tb_soc_sram_copy.sv
+R6
+R3
+!i10b 1
+!s100 m9>VT3eQXBQ5Q1TSU>`c@3
+IoScge5NI>nI4i^diMQmkU0
+S1
+R2
+w1788694590
+8TB/tb_soc_sram_copy.sv
+FTB/tb_soc_sram_copy.sv
+!i122 5
+L0 3 155
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 TB/tb_soc_sram_copy.sv|
+!s90 -sv|-work|work|TB/tb_soc_sram_copy.sv|
+!i113 0
+R13
+R4
+vuart_axi_slave
+R5
+R6
+R3
+!i10b 1
+!s100 ?D`RF3Bk_9TTAd^0;>7No1
+IlK_iT[Q=YSOUOjRJ`0kbA2
+S1
+R2
+w1788598345
+8AXI/uart_axi_slave.sv
+FAXI/uart_axi_slave.sv
+!i122 4
+L0 1 238
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vuart_core
+R5
+R6
+R3
+!i10b 1
+!s100 Ic5<P<?`5`cl?C]k17k@<2
+IY=KGY>9RD^JmXc:]^9OTM3
+S1
+R2
+R24
+8UART/uart_core.sv
+FUART/uart_core.sv
+!i122 4
+L0 1 74
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vuart_rx
+R5
+R6
+R3
+!i10b 1
+!s100 5?z47VY8K[KS5?Y;ofmGA0
+I1?Ue`c]dXTj<6?M8XN^Q?3
+S1
+R2
+w1788679170
+8UART/uart_rx.sv
+FUART/uart_rx.sv
+!i122 4
+L0 1 591
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vuart_tx
+R5
+R6
+R3
+!i10b 1
+!s100 cQ<lgV:F:QV3?j`WNP?2H0
+IbVT6_PO]IF5omG2UPWnZ11
+S1
+R2
+w1788679150
+8UART/uart_tx.sv
+FUART/uart_tx.sv
+!i122 4
+L0 1 440
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vwrite_back_mux
+R5
+R6
+R3
+!i10b 1
+!s100 BTklhh;<n3HdIP]Ca7b`30
+I42clB9ZMOMGQ6Sa1j[S<00
+S1
+R2
+R21
+8RV32I_Single_Cycle/write_back_mux.sv
+FRV32I_Single_Cycle/write_back_mux.sv
+!i122 4
+L0 1 20
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4

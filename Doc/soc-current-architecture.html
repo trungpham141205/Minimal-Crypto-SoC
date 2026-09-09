@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiến trúc SoC hiện tại · RV32I / AXI / AES-256</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f5f5f5;--ink:#2d3142;--muted:#4f5d75;--soft:#7a8399;--rule:#bfc0c0;--accent:#eb6c36;--link:#2e5aa8;--sans:'Geist',Arial,sans-serif;--mono:'Geist Mono','DejaVu Sans Mono',monospace}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6}
+    main{max-width:1400px;margin:auto;padding:40px 32px}header{padding:0 8px 16px;border-bottom:1px solid var(--rule)}
+    .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--muted);margin:0 0 8px}
+    h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:40px;line-height:1.2;margin:0 0 12px}header p{margin:0;color:var(--muted)}
+    .diagram{overflow-x:auto;margin:16px 0 24px}svg{display:block;width:100%;min-width:1024px;height:auto}
+    svg text{fill:var(--ink);font-family:var(--sans);font-size:16px}svg .mono{font-family:var(--mono);font-size:12px;fill:var(--muted)}
+    svg .name{font-weight:600;font-size:20px}svg .small{font-size:12px;fill:var(--muted)}svg .tag{font-family:var(--mono);font-size:12px;fill:var(--muted);letter-spacing:.04em}
+    .zone{fill:rgba(45,49,66,.02);stroke:var(--rule);stroke-width:1}.node{fill:#fff;stroke:var(--ink);stroke-width:1.2}.store{fill:#eaeaec;stroke:var(--muted);stroke-width:1.2}
+    .focal{fill:#f9e9e1;stroke:var(--accent);stroke-width:1.5}.wire{fill:none;stroke:var(--muted);stroke-width:1.5;marker-end:url(#arrow)}
+    .return{stroke-dasharray:4 4}.serial{stroke:var(--link);marker-end:url(#arrow-link)}.mask{fill:var(--paper)}
+    .detail-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;margin:24px 0}.panel{padding:24px;background:#fff;border:1px solid #d9d9dc;border-radius:8px}
+    h2{font-size:20px;font-weight:600;margin:0 0 16px}h3{font-size:16px;margin:20px 0 8px}p{margin:8px 0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px 8px;border-bottom:1px solid #e2e2e5}th{font-weight:600;color:var(--muted)}
+    code{font-family:var(--mono);font-size:12px}ol,ul{padding-left:24px;margin:8px 0}li{margin:8px 0}.note{border-left:3px solid var(--accent);padding:0 0 0 20px;margin:24px 0}.muted{color:var(--muted);font-size:14px}
+    details{border-top:1px solid var(--rule);padding:20px 0}summary{cursor:pointer;font-weight:600}footer{border-top:1px solid var(--rule);padding-top:16px;margin-top:24px;font-size:12px;color:var(--muted)}
+    @media(max-width:800px){main{padding:24px 16px}.detail-grid{grid-template-columns:1fr}h1{font-size:32px}}
+    @media print{main{padding:0;max-width:none}.diagram{overflow:visible}svg{min-width:0}.panel{break-inside:avoid}details{display:block}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">KLTN / RTL ARCHITECTURE / 06.09.2026</p>
+    <h1>Kiến trúc SoC hiện tại</h1>
+    <p>RV32I điều khiển bộ nhớ dữ liệu, UART và AES-256 qua một AXI master. Đối chiếu hierarchy từ <code>soc_top.sv</code>.</p>
+  </header>
+  <div class="diagram">
+    <svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="soc-current-architecture-title soc-current-architecture-desc">
+      <title id="soc-current-architecture-title">Kiến trúc SoC RV32I, AXI, SRAM, UART và AES-256</title>
+      <desc id="soc-current-architecture-desc">CPU có bộ nhớ lệnh riêng và truy cập ba slave SRAM, UART, AES-256 qua cầu AXI và interconnect; nhánh SRAM còn thiếu wrapper đúng tên trong snapshot RTL.</desc>
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#4f5d75"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#eb6c36"/></marker>
+        <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#2e5aa8"/></marker>
+      </defs>
+      <rect width="1280" height="720" fill="#f5f5f5"/>
+      <text x="40" y="40" class="name">soc_top</text>
+      <text x="40" y="64" class="mono">clk / rstn → các khối tích hợp · reset active-low</text>
+      <text x="740" y="40" class="mono">AXI: ADDR 32 / DATA 32 / ID 4</text>
+      <text x="740" y="64" class="mono">AW + W + B + AR + R · single-beat</text>
+      <rect x="40" y="88" width="1192" height="584" rx="8" fill="none" stroke="#bfc0c0" stroke-dasharray="4 4"/>
+      <rect x="64" y="112" width="256" height="496" rx="8" class="zone"/>
+      <text x="80" y="136" class="tag">u_cpu / risc_top</text>
+
+      <!-- Connections precede nodes. Separate request, response and stall ports. -->
+      <path d="M140 344 V272" class="wire"/>
+      <path d="M244 272 V344" class="wire"/>
+      <rect x="104" y="292" width="28" height="24" class="mask"/><text x="108" y="308" class="mono">PC</text>
+      <rect x="252" y="292" width="44" height="24" class="mask"/><text x="252" y="308" class="mono">INSTR</text>
+      <path d="M304 424 H384" class="wire"/>
+      <path d="M384 488 H304" class="wire"/>
+      <path d="M384 544 H304" class="wire return"/>
+      <rect x="328" y="396" width="32" height="20" class="mask"/><text x="328" y="412" class="mono">L/S</text>
+      <rect x="320" y="460" width="48" height="20" class="mask"/><text x="320" y="476" class="mono">RDATA</text>
+      <rect x="320" y="516" width="48" height="20" class="mask"/><text x="320" y="532" class="mono">STALL</text>
+      <path d="M600 448 H656" class="wire"/>
+      <path d="M804 204 H872" class="wire"/>
+      <path d="M804 392 H872" class="wire"/>
+      <path d="M804 584 H872" class="wire"/>
+      <rect x="816" y="176" width="40" height="20" class="mask"/><text x="816" y="192" class="mono">SRAM</text>
+      <rect x="816" y="364" width="40" height="20" class="mask"/><text x="816" y="380" class="mono">UART</text>
+      <rect x="820" y="556" width="32" height="20" class="mask"/><text x="820" y="572" class="mono">AES</text>
+      <path d="M1256 392 H1192" class="wire serial"/>
+      <path d="M1192 432 H1256" class="wire serial"/>
+
+      <rect x="80" y="160" width="224" height="112" rx="8" class="store"/>
+      <text x="96" y="188" class="name">Bộ nhớ lệnh</text>
+      <text x="96" y="212" class="mono">instruction_memory</text>
+      <text x="96" y="236" class="small">1024 × 32 bit = 4 KiB</text>
+      <text x="96" y="256" class="mono">program.hex · PC[11:2]</text>
+
+      <rect x="80" y="344" width="224" height="232" rx="8" class="node"/>
+      <text x="96" y="376" class="name">CPU RV32I</text>
+      <text x="96" y="400" class="small">Single-cycle + memory stall</text>
+      <text x="96" y="440">PC / decode / register file</text>
+      <text x="96" y="468">ALU / branch / write-back</text>
+      <text x="96" y="504" class="mono">addr, wdata: 32 bit</text>
+      <text x="96" y="528" class="mono">read / write / funct3</text>
+      <text x="96" y="552" class="small">Stall giữ PC và ghi thanh ghi</text>
+
+      <rect x="384" y="384" width="216" height="192" rx="8" class="node"/>
+      <text x="400" y="412" class="tag">u_axi_master</text>
+      <text x="400" y="444" class="name">AXI Master</text>
+      <text x="400" y="468" class="mono">axi_master_wrapper</text>
+      <text x="400" y="500" class="small">Native load/store → AXI</text>
+      <text x="400" y="524" class="small">1 giao dịch đang chờ</text>
+      <text x="400" y="548" class="small">Load format / store WSTRB</text>
+      <text x="384" y="616" class="mono">stall_o → cpu_stall_debug</text>
+
+      <rect x="656" y="160" width="148" height="448" rx="8" class="focal"/>
+      <text x="730" y="280" text-anchor="middle" class="tag">INTERCONNECT</text>
+      <text x="730" y="320" text-anchor="middle" class="name">AXI 1 → 3</text>
+      <text x="730" y="352" text-anchor="middle" class="small">Giải mã địa chỉ</text>
+      <text x="730" y="376" text-anchor="middle" class="small">Định tuyến</text>
+      <text x="730" y="400" text-anchor="middle" class="small">request / response</text>
+      <text x="730" y="492" text-anchor="middle" class="mono">u_interconnect</text>
+      <text x="730" y="528" text-anchor="middle" class="small">Ngoài map:</text>
+      <text x="730" y="552" text-anchor="middle" class="mono">DECERR</text>
+
+      <rect x="872" y="136" width="320" height="152" rx="8" class="store"/>
+      <text x="888" y="160" class="tag">u_sram_slave / axi_sram_slave</text>
+      <text x="888" y="192" class="name">Data SRAM *</text>
+      <text x="888" y="220" class="mono">0x0000_0000–0x0000_01FF</text>
+      <text x="888" y="244" class="small">Decode 512 B · macro dự kiến 1 KiB</text>
+      <text x="888" y="268" class="small">Single-port · SB/SH: read-modify-write</text>
+
+      <rect x="872" y="328" width="320" height="144" rx="8" class="node"/>
+      <text x="888" y="352" class="tag">u_uart_slave / uart_axi_slave</text>
+      <text x="888" y="380" class="name">UART MMIO</text>
+      <text x="1088" y="396" class="mono">uart_rx_i</text>
+      <text x="888" y="408" class="mono">uart_core</text>
+      <text x="888" y="436" class="small">Baud / RX sync / TX / RX</text>
+      <text x="1088" y="436" class="mono">uart_tx_o</text>
+      <text x="888" y="460" class="mono">0x1000_0000–0x1000_0FFF</text>
+
+      <rect x="872" y="512" width="320" height="144" rx="8" class="focal"/>
+      <text x="888" y="536" class="tag">u_aes_slave / aes_axi_slave</text>
+      <text x="888" y="564" class="name">AES-256 MMIO</text>
+      <text x="888" y="588" class="mono">aes_cipher_top · 14 rounds</text>
+      <text x="888" y="612" class="small">Block 128 bit · key 256 bit · pipeline</text>
+      <text x="888" y="636" class="mono">0x2000_0000–0x2000_0FFF</text>
+      <text x="64" y="648" class="small">* SRAM: thiếu wrapper đúng tên; xem ghi chú bên dưới.</text>
+      <text x="504" y="648" class="mono">done_q → aes_done_debug</text>
+
+      <line x1="40" y1="688" x2="1240" y2="688" stroke="#bfc0c0"/>
+      <text x="40" y="712" class="small">Mũi tên AXI: hướng khởi tạo giao dịch; gồm cả phản hồi.</text>
+      <text x="528" y="712" class="small">Nét đứt: stall.</text>
+      <text x="696" y="712" class="small">Nét xanh: chân UART ngoài SoC.</text>
+      <text x="1024" y="712" class="small">Khung: phạm vi module.</text>
+    </svg>
+  </div>
+
+  <div class="detail-grid">
+    <section class="panel">
+      <h2>Address map đang được giải mã</h2>
+      <table>
+        <thead><tr><th>Khối</th><th>Địa chỉ</th><th>Cửa sổ</th></tr></thead>
+        <tbody>
+          <tr><td>Data SRAM</td><td><code>0x0000_0000–0x0000_01FF</code></td><td>512 B</td></tr>
+          <tr><td>UART</td><td><code>0x1000_0000–0x1000_0FFF</code></td><td>4 KiB</td></tr>
+          <tr><td>AES-256</td><td><code>0x2000_0000–0x2000_0FFF</code></td><td>4 KiB</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">Cửa sổ MMIO là phạm vi địa chỉ, không phải dung lượng thanh ghi. Bộ nhớ lệnh 4 KiB nằm trên đường fetch riêng trong CPU.</p>
+    </section>
+    <section class="panel">
+      <h2>CPU điều phối dữ liệu</h2>
+      <ol>
+        <li>Đọc UART RXDATA hoặc lấy dữ liệu từ SRAM.</li>
+        <li>Ghi 4 word plaintext, 8 word key và START vào AES.</li>
+        <li>Poll STATUS; khi done, đọc 4 word ciphertext.</li>
+        <li>Lưu về SRAM hoặc ghi UART TXDATA để gửi ra ngoài.</li>
+      </ol>
+      <p class="muted">Đây là cách các kết nối hiện tại hỗ trợ luồng xử lý. Firmware hiện có là smoke test; CPU thực hiện các lần chuyển dữ liệu, chưa có DMA hay đường trực tiếp UART–AES.</p>
+    </section>
+  </div>
+
+  <aside class="note">
+    <h2>Ghi chú khi đọc sơ đồ</h2>
+    <p><strong>Nhánh SRAM chưa khớp tên module.</strong> <code>axi_sram_slave</code> gọi <code>sram_256x32_wrapper</code>, nhưng snapshot chỉ có <code>shared_sram_256x32_wrapper</code> và <code>instruction_sram_256x32_wrapper</code>. Macro <code>SRAM1RW256x32</code> là 1 KiB; interconnect hiện chỉ mở 512 byte. Sơ đồ phản ánh nhánh được khai báo và ý định nối macro, chưa xác nhận hierarchy elaborate thành công.</p>
+    <p><strong>Phạm vi hiện tại:</strong> AES mã hóa block 128 bit với key 256 bit; wrapper xử lý một yêu cầu tại một thời điểm dù core có pipeline. CNN, AES-GCM, Key Vault, Secure Boot và PQC trong tài liệu lộ trình chưa được tích hợp tại <code>soc_top</code>.</p>
+  </aside>
+
+  <details>
+    <summary>Thanh ghi MMIO và nguồn RTL đối chiếu</summary>
+    <div class="detail-grid">
+      <section>
+        <h3>UART · offset từ 0x1000_0000</h3>
+        <table><thead><tr><th>Offset</th><th>Thanh ghi</th></tr></thead><tbody>
+          <tr><td><code>0x00 / 0x04 / 0x08</code></td><td>TXDATA / RXDATA / STATUS</td></tr>
+          <tr><td><code>0x0C / 0x10</code></td><td>CONTROL / BAUDRATE</td></tr>
+        </tbody></table>
+        <h3>AES · offset từ 0x2000_0000</h3>
+        <table><thead><tr><th>Offset</th><th>Thanh ghi</th></tr></thead><tbody>
+          <tr><td><code>0x00 / 0x04</code></td><td>CONTROL / STATUS</td></tr>
+          <tr><td><code>0x10–0x1C</code></td><td>PT0–PT3 · 128 bit</td></tr>
+          <tr><td><code>0x20–0x3C</code></td><td>KEY0–KEY7 · 256 bit</td></tr>
+          <tr><td><code>0x40–0x4C</code></td><td>CT0–CT3 · 128 bit</td></tr>
+        </tbody></table>
+        <p class="muted">CONTROL: start bit 0, clear done bit 1. STATUS: busy bit 0, done bit 1. PT0/KEY0/CT0 chứa word cao nhất; key hiện đọc được qua MMIO.</p>
+      </section>
+      <section>
+        <h3>Nguồn chính</h3>
+        <ul>
+          <li><code>soc_top.sv</code></li>
+          <li><code>RV32I_Single_Cycle/risc_top.sv</code><br><code>RV32I_Single_Cycle/instruction_memory.sv</code></li>
+          <li><code>AXI/axi_master_wrapper.sv</code><br><code>AXI/axi_interconnect_1m3s.sv</code></li>
+          <li><code>AXI/axi_sram_slave.sv</code><br><code>AXI/uart_axi_slave.sv</code><br><code>AXI/aes_axi_slave.sv</code></li>
+          <li><code>AES/rtl/aes_cipher_top.sv</code><br><code>UART/uart_core.sv</code></li>
+        </ul>
+        <p class="muted">Ngoài lỗi wrapper SRAM, filelist còn tham chiếu testbench ở thư mục gốc trong khi file nằm trong TB/. Instruction SRAM wrapper chưa được CPU sử dụng. Khảo sát này không chạy lại mô phỏng.</p>
+      </section>
+    </div>
+  </details>
+  <footer>Khung sơ đồ 1280 × 720 · HTML + SVG nội tuyến · Nền sáng, điểm nhấn cam theo lựa chọn người dùng.<br>Font: Instrument Serif / Geist / Geist Mono; khi offline dùng Georgia / Arial / monospace có sẵn. Chi tiết datapath CPU, round AES và nội bộ UART được gộp vào khối tương ứng.</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AES-256 RTL Module Datapath</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fff; color: #111; font-family: Arial, Helvetica, sans-serif; }
+    main { max-width: 1820px; margin: 0 auto; padding: 24px; }
+    .frame { overflow: auto; border: 1px solid #777; }
+    svg { display: block; width: 100%; min-width: 1350px; height: auto; background: #fff; }
+    text { fill: #111; font-family: Consolas, "Courier New", monospace; }
+    .top { fill: #fff; stroke: #111; stroke-width: 2.2; }
+    .module { fill: #fff; stroke: #111; stroke-width: 1.5; }
+    .submodule { fill: #fff; stroke: #555; stroke-width: 1.1; }
+    .topname { font-size: 19px; font-weight: 700; }
+    .name { font-size: 15px; font-weight: 700; }
+    .smallname { font-size: 11px; font-weight: 700; }
+    .sboxname { font-size: 6.3px; }
+    .wire { fill: none; stroke: #111; stroke-width: 1.5; marker-end: url(#arrow); }
+    .thinwire { fill: none; stroke: #555; stroke-width: 1; marker-end: url(#smallArrow); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="frame">
+      <svg viewBox="0 0 1780 1080" role="img" aria-label="AES-256 detailed RTL module datapath">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0 0L8 4L0 8z" fill="#111"/>
+          </marker>
+          <marker id="smallArrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+            <path d="M0 0L7 3.5L0 7z" fill="#555"/>
+          </marker>
+        </defs>
+
+        <rect x="25" y="25" width="1730" height="1030" rx="6" class="top"/>
+        <text x="50" y="60" class="topname">aes256_core</text>
+
+        <!-- aes256_key_schedule -->
+        <rect x="55" y="90" width="1670" height="315" rx="5" class="module"/>
+        <text x="80" y="122" class="name">aes256_key_schedule</text>
+
+        <!-- Seven aes256_key_expand_block instances. Each contains eight aes_sbox instances. -->
+        <g>
+          <rect x="80" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="187" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="97" y="215" width="39" height="25" class="submodule"/><text x="116" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="144" y="215" width="39" height="25" class="submodule"/><text x="163" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="191" y="215" width="39" height="25" class="submodule"/><text x="210" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="238" y="215" width="39" height="25" class="submodule"/><text x="257" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="97" y="265" width="39" height="25" class="submodule"/><text x="116" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="144" y="265" width="39" height="25" class="submodule"/><text x="163" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="191" y="265" width="39" height="25" class="submodule"/><text x="210" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="238" y="265" width="39" height="25" class="submodule"/><text x="257" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+
+          <rect x="315" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="422" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="332" y="215" width="39" height="25" class="submodule"/><text x="351" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="379" y="215" width="39" height="25" class="submodule"/><text x="398" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="426" y="215" width="39" height="25" class="submodule"/><text x="445" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="473" y="215" width="39" height="25" class="submodule"/><text x="492" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="332" y="265" width="39" height="25" class="submodule"/><text x="351" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="379" y="265" width="39" height="25" class="submodule"/><text x="398" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="426" y="265" width="39" height="25" class="submodule"/><text x="445" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="473" y="265" width="39" height="25" class="submodule"/><text x="492" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+
+          <rect x="550" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="657" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="567" y="215" width="39" height="25" class="submodule"/><text x="586" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="614" y="215" width="39" height="25" class="submodule"/><text x="633" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="661" y="215" width="39" height="25" class="submodule"/><text x="680" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="708" y="215" width="39" height="25" class="submodule"/><text x="727" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="567" y="265" width="39" height="25" class="submodule"/><text x="586" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="614" y="265" width="39" height="25" class="submodule"/><text x="633" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="661" y="265" width="39" height="25" class="submodule"/><text x="680" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="708" y="265" width="39" height="25" class="submodule"/><text x="727" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+
+          <rect x="785" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="892" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="802" y="215" width="39" height="25" class="submodule"/><text x="821" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="849" y="215" width="39" height="25" class="submodule"/><text x="868" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="896" y="215" width="39" height="25" class="submodule"/><text x="915" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="943" y="215" width="39" height="25" class="submodule"/><text x="962" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="802" y="265" width="39" height="25" class="submodule"/><text x="821" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="849" y="265" width="39" height="25" class="submodule"/><text x="868" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="896" y="265" width="39" height="25" class="submodule"/><text x="915" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="943" y="265" width="39" height="25" class="submodule"/><text x="962" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+
+          <rect x="1020" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="1127" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="1037" y="215" width="39" height="25" class="submodule"/><text x="1056" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1084" y="215" width="39" height="25" class="submodule"/><text x="1103" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1131" y="215" width="39" height="25" class="submodule"/><text x="1150" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1178" y="215" width="39" height="25" class="submodule"/><text x="1197" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1037" y="265" width="39" height="25" class="submodule"/><text x="1056" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1084" y="265" width="39" height="25" class="submodule"/><text x="1103" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1131" y="265" width="39" height="25" class="submodule"/><text x="1150" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1178" y="265" width="39" height="25" class="submodule"/><text x="1197" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+
+          <rect x="1255" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="1362" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="1272" y="215" width="39" height="25" class="submodule"/><text x="1291" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1319" y="215" width="39" height="25" class="submodule"/><text x="1338" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1366" y="215" width="39" height="25" class="submodule"/><text x="1385" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1413" y="215" width="39" height="25" class="submodule"/><text x="1432" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1272" y="265" width="39" height="25" class="submodule"/><text x="1291" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1319" y="265" width="39" height="25" class="submodule"/><text x="1338" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1366" y="265" width="39" height="25" class="submodule"/><text x="1385" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1413" y="265" width="39" height="25" class="submodule"/><text x="1432" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+
+          <rect x="1490" y="155" width="215" height="205" rx="4" class="module"/>
+          <text x="1597" y="181" text-anchor="middle" class="smallname">aes256_key_expand_block</text>
+          <rect x="1507" y="215" width="39" height="25" class="submodule"/><text x="1526" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1554" y="215" width="39" height="25" class="submodule"/><text x="1573" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1601" y="215" width="39" height="25" class="submodule"/><text x="1620" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1648" y="215" width="39" height="25" class="submodule"/><text x="1667" y="231" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1507" y="265" width="39" height="25" class="submodule"/><text x="1526" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1554" y="265" width="39" height="25" class="submodule"/><text x="1573" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1601" y="265" width="39" height="25" class="submodule"/><text x="1620" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1648" y="265" width="39" height="25" class="submodule"/><text x="1667" y="281" text-anchor="middle" class="sboxname">aes_sbox</text>
+        </g>
+
+        <path d="M295 190H315M530 190H550M765 190H785M1000 190H1020M1235 190H1255M1470 190H1490" class="wire"/>
+
+        <!-- aes_round -->
+        <rect x="55" y="455" width="815" height="540" rx="5" class="module"/>
+        <text x="80" y="487" class="name">aes_round</text>
+
+        <rect x="90" y="555" width="210" height="350" rx="4" class="module"/>
+        <text x="195" y="583" text-anchor="middle" class="name">aes_subbytes</text>
+        <g>
+          <rect x="112" y="630" width="34" height="24" class="submodule"/><text x="129" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="156" y="630" width="34" height="24" class="submodule"/><text x="173" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="200" y="630" width="34" height="24" class="submodule"/><text x="217" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="244" y="630" width="34" height="24" class="submodule"/><text x="261" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="112" y="675" width="34" height="24" class="submodule"/><text x="129" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="156" y="675" width="34" height="24" class="submodule"/><text x="173" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="200" y="675" width="34" height="24" class="submodule"/><text x="217" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="244" y="675" width="34" height="24" class="submodule"/><text x="261" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="112" y="720" width="34" height="24" class="submodule"/><text x="129" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="156" y="720" width="34" height="24" class="submodule"/><text x="173" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="200" y="720" width="34" height="24" class="submodule"/><text x="217" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="244" y="720" width="34" height="24" class="submodule"/><text x="261" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="112" y="765" width="34" height="24" class="submodule"/><text x="129" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="156" y="765" width="34" height="24" class="submodule"/><text x="173" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="200" y="765" width="34" height="24" class="submodule"/><text x="217" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="244" y="765" width="34" height="24" class="submodule"/><text x="261" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+        </g>
+
+        <rect x="350" y="645" width="150" height="95" rx="4" class="module"/>
+        <text x="425" y="699" text-anchor="middle" class="name">aes_shiftrows</text>
+        <rect x="550" y="645" width="170" height="95" rx="4" class="module"/>
+        <text x="635" y="699" text-anchor="middle" class="name">aes_mixcolumns</text>
+        <rect x="735" y="645" width="120" height="95" rx="4" class="module"/>
+        <text x="795" y="699" text-anchor="middle" class="smallname">aes_addroundkey</text>
+        <path d="M300 692H350M500 692H550M720 692H735" class="wire"/>
+
+        <!-- aes_roundlast -->
+        <rect x="910" y="455" width="815" height="540" rx="5" class="module"/>
+        <text x="935" y="487" class="name">aes_roundlast</text>
+
+        <rect x="945" y="555" width="210" height="350" rx="4" class="module"/>
+        <text x="1050" y="583" text-anchor="middle" class="name">aes_subbytes</text>
+        <g>
+          <rect x="967" y="630" width="34" height="24" class="submodule"/><text x="984" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1011" y="630" width="34" height="24" class="submodule"/><text x="1028" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1055" y="630" width="34" height="24" class="submodule"/><text x="1072" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1099" y="630" width="34" height="24" class="submodule"/><text x="1116" y="646" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="967" y="675" width="34" height="24" class="submodule"/><text x="984" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1011" y="675" width="34" height="24" class="submodule"/><text x="1028" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1055" y="675" width="34" height="24" class="submodule"/><text x="1072" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1099" y="675" width="34" height="24" class="submodule"/><text x="1116" y="691" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="967" y="720" width="34" height="24" class="submodule"/><text x="984" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1011" y="720" width="34" height="24" class="submodule"/><text x="1028" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1055" y="720" width="34" height="24" class="submodule"/><text x="1072" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1099" y="720" width="34" height="24" class="submodule"/><text x="1116" y="736" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="967" y="765" width="34" height="24" class="submodule"/><text x="984" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1011" y="765" width="34" height="24" class="submodule"/><text x="1028" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1055" y="765" width="34" height="24" class="submodule"/><text x="1072" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+          <rect x="1099" y="765" width="34" height="24" class="submodule"/><text x="1116" y="781" text-anchor="middle" class="sboxname">aes_sbox</text>
+        </g>
+
+        <rect x="1210" y="645" width="180" height="95" rx="4" class="module"/>
+        <text x="1300" y="699" text-anchor="middle" class="name">aes_shiftrows</text>
+        <rect x="1450" y="645" width="230" height="95" rx="4" class="module"/>
+        <text x="1565" y="699" text-anchor="middle" class="name">aes_addroundkey</text>
+        <path d="M1155 692H1210M1390 692H1450" class="wire"/>
+
+        <!-- Module-to-module key connections -->
+        <path d="M870 405V430H795V645" class="wire"/>
+        <path d="M870 430H1565V645" class="wire"/>
+      </svg>
+    </div>
+  </main>
+</body>
+</html>
