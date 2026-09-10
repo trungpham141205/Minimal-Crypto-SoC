@@ -195,9 +195,22 @@ module soc_top (
     // addresses reach the cache.  Any CPU store to executable SRAM invalidates
     // all lines so a later fetch cannot observe stale instructions.
     // =========================================================================
-    assign icache_invalidate =
-        cpu_mem_write &&
-        ((cpu_mem_addr & INSTR_SRAM_MASK) == INSTR_SRAM_BASE);
+    // Register the invalidate request to break the long combinational path
+    // from instruction fetch/cache lookup through CPU decode and address
+    // generation back into the cache write enables.  Hold the registered
+    // request only while the store is stalled.  On the completion edge the
+    // cache still observes the previous high value, while the register clears
+    // in time for the next cycle's instruction fetch/refill.
+    always_ff @(posedge clk) begin
+        if (!rstn) begin
+            icache_invalidate <= 1'b0;
+        end
+        else begin
+            icache_invalidate <=
+                cpu_mem_write && cpu_mem_stall &&
+                ((cpu_mem_addr & INSTR_SRAM_MASK) == INSTR_SRAM_BASE);
+        end
+    end
 
     l1_icache #(
         .NUM_SETS       (32),

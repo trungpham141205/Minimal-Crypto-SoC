@@ -5,6 +5,8 @@ Z0 !s12c _opt
 Z1 !s99 nomlopt
 R0
 R1
+R0
+R1
 !s11f vlog 2025.2 2025.05, May 31 2025
 13
 !s112 1.1
@@ -16,22 +18,21 @@ Z2 d/home/trungpham/PROJECT/KLTN
 T_opt
 !i145 1
 !i144 0
-Z3 !s110 1788698005
-V3A?A7Ie9:6ShzLHd^QL^:2
+Z3 !s110 1789043176
+V8`@oe9Q6TeHD0lX68jB1`3
 04 10 4 work tb_soc_top fast 0
-=1-14ac606edb59-6a9d5d95-8a488-ff53
+=1-14ac606edb59-6aa2a1e8-a0a0f-2df6e
 R1
 !s12f OEM100
 !s12b OEM100
-!s124 OEM10U483 
+!s124 OEM10U484 
 !s135 nogc
 o-quiet -auto_acc_if_foreign -work work +acc
 Z4 tCvgOpt 0
 n@_opt
 OL;O;2025.2;82
-R2
 vaes_add_round_key
-Z5 2AXI/axi_full_if.sv|RV32I_Single_Cycle/SRAM1RW256x32.v|RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv|RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv|RV32I_Single_Cycle/alu.sv|RV32I_Single_Cycle/alu_src_a_mux.sv|RV32I_Single_Cycle/alu_src_b_mux.sv|RV32I_Single_Cycle/branch_unit.sv|RV32I_Single_Cycle/control_unit.sv|RV32I_Single_Cycle/immediate_generator.sv|RV32I_Single_Cycle/instruction_memory.sv|RV32I_Single_Cycle/instruction_fetch_router.sv|RV32I_Single_Cycle/pc_adder.sv|RV32I_Single_Cycle/pc_imm.sv|RV32I_Single_Cycle/program_counter.sv|RV32I_Single_Cycle/register_file.sv|RV32I_Single_Cycle/write_back_mux.sv|RV32I_Single_Cycle/risc_top.sv|UART/baud_gen.sv|UART/rx_sync.sv|UART/uart_tx.sv|UART/uart_rx.sv|UART/uart_core.sv|AES/rtl/aes_sbox.sv|AES/rtl/aes_sub_bytes.sv|AES/rtl/aes_shift_rows.sv|AES/rtl/aes_mix_columns.sv|AES/rtl/aes_add_round_key.sv|AES/rtl/aes_rot_word.sv|AES/rtl/aes_sub_word.sv|AES/rtl/aes_key_expand_step.sv|AES/rtl/aes_key_schedule.sv|AES/rtl/aes_round.sv|AES/rtl/aes_round_last.sv|AES/rtl/aes_cipher_top.sv|AXI/cpu_axi_request_arbiter.sv|AXI/axi_master_wrapper.sv|AXI/axi_instruction_sram_slave.sv|AXI/axi_shared_sram_slave.sv|AXI/axi_sram_controller.sv|AXI/uart_axi_slave.sv|AXI/aes_axi_slave.sv|AXI/axi_interconnect_1m4s.sv|soc_top.sv
+Z5 2AXI/axi_full_if.sv|RV32I_Single_Cycle/SRAM1RW256x32.v|RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv|RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv|RV32I_Single_Cycle/alu.sv|RV32I_Single_Cycle/alu_src_a_mux.sv|RV32I_Single_Cycle/alu_src_b_mux.sv|RV32I_Single_Cycle/branch_unit.sv|RV32I_Single_Cycle/control_unit.sv|RV32I_Single_Cycle/immediate_generator.sv|RV32I_Single_Cycle/instruction_memory.sv|RV32I_Single_Cycle/instruction_fetch_router.sv|RV32I_Single_Cycle/l1_icache.sv|RV32I_Single_Cycle/pc_adder.sv|RV32I_Single_Cycle/pc_imm.sv|RV32I_Single_Cycle/program_counter.sv|RV32I_Single_Cycle/register_file.sv|RV32I_Single_Cycle/write_back_mux.sv|RV32I_Single_Cycle/risc_top.sv|UART/baud_gen.sv|UART/rx_sync.sv|UART/uart_tx.sv|UART/uart_rx.sv|UART/uart_core.sv|AES/rtl/aes_sbox.sv|AES/rtl/aes_sub_bytes.sv|AES/rtl/aes_shift_rows.sv|AES/rtl/aes_mix_columns.sv|AES/rtl/aes_add_round_key.sv|AES/rtl/aes_rot_word.sv|AES/rtl/aes_sub_word.sv|AES/rtl/aes_key_expand_step.sv|AES/rtl/aes_key_schedule.sv|AES/rtl/aes_round.sv|AES/rtl/aes_round_last.sv|AES/rtl/aes_cipher_top.sv|AXI/cpu_axi_request_arbiter.sv|AXI/axi_master_wrapper.sv|AXI/axi_instruction_sram_slave.sv|AXI/axi_shared_sram_slave.sv|AXI/axi_sram_controller.sv|AXI/uart_axi_slave.sv|AXI/aes_axi_slave.sv|AXI/axi_interconnect_1m4s.sv|soc_top.sv
 Z6 DXx6 sv_std 3 std 0 22 @5XbY]_OacJl=`ToSm<M^0
 R3
 !i10b 1
@@ -42,15 +43,15 @@ R2
 Z7 w1788436987
 8AES/rtl/aes_add_round_key.sv
 FAES/rtl/aes_add_round_key.sv
-!i122 8
+!i122 11
 L0 1 11
 Z8 VDg1SIo80bB@j0V0VzS_@n1
 Z9 OL;L;2025.2;82
 r1
 !s85 0
 31
-Z10 !s108 1788698005.000000
-Z11 !s107 soc_top.sv|AXI/axi_interconnect_1m4s.sv|AXI/aes_axi_slave.sv|AXI/uart_axi_slave.sv|AXI/axi_sram_controller.sv|AXI/axi_shared_sram_slave.sv|AXI/axi_instruction_sram_slave.sv|AXI/axi_master_wrapper.sv|AXI/cpu_axi_request_arbiter.sv|AES/rtl/aes_cipher_top.sv|AES/rtl/aes_round_last.sv|AES/rtl/aes_round.sv|AES/rtl/aes_key_schedule.sv|AES/rtl/aes_key_expand_step.sv|AES/rtl/aes_sub_word.sv|AES/rtl/aes_rot_word.sv|AES/rtl/aes_add_round_key.sv|AES/rtl/aes_mix_columns.sv|AES/rtl/aes_shift_rows.sv|AES/rtl/aes_sub_bytes.sv|AES/rtl/aes_sbox.sv|UART/uart_core.sv|UART/uart_rx.sv|UART/uart_tx.sv|UART/rx_sync.sv|UART/baud_gen.sv|RV32I_Single_Cycle/risc_top.sv|RV32I_Single_Cycle/write_back_mux.sv|RV32I_Single_Cycle/register_file.sv|RV32I_Single_Cycle/program_counter.sv|RV32I_Single_Cycle/pc_imm.sv|RV32I_Single_Cycle/pc_adder.sv|RV32I_Single_Cycle/instruction_fetch_router.sv|RV32I_Single_Cycle/instruction_memory.sv|RV32I_Single_Cycle/immediate_generator.sv|RV32I_Single_Cycle/control_unit.sv|RV32I_Single_Cycle/branch_unit.sv|RV32I_Single_Cycle/alu_src_b_mux.sv|RV32I_Single_Cycle/alu_src_a_mux.sv|RV32I_Single_Cycle/alu.sv|RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv|RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv|RV32I_Single_Cycle/SRAM1RW256x32.v|AXI/axi_full_if.sv|
+Z10 !s108 1789043176.000000
+Z11 !s107 soc_top.sv|AXI/axi_interconnect_1m4s.sv|AXI/aes_axi_slave.sv|AXI/uart_axi_slave.sv|AXI/axi_sram_controller.sv|AXI/axi_shared_sram_slave.sv|AXI/axi_instruction_sram_slave.sv|AXI/axi_master_wrapper.sv|AXI/cpu_axi_request_arbiter.sv|AES/rtl/aes_cipher_top.sv|AES/rtl/aes_round_last.sv|AES/rtl/aes_round.sv|AES/rtl/aes_key_schedule.sv|AES/rtl/aes_key_expand_step.sv|AES/rtl/aes_sub_word.sv|AES/rtl/aes_rot_word.sv|AES/rtl/aes_add_round_key.sv|AES/rtl/aes_mix_columns.sv|AES/rtl/aes_shift_rows.sv|AES/rtl/aes_sub_bytes.sv|AES/rtl/aes_sbox.sv|UART/uart_core.sv|UART/uart_rx.sv|UART/uart_tx.sv|UART/rx_sync.sv|UART/baud_gen.sv|RV32I_Single_Cycle/risc_top.sv|RV32I_Single_Cycle/write_back_mux.sv|RV32I_Single_Cycle/register_file.sv|RV32I_Single_Cycle/program_counter.sv|RV32I_Single_Cycle/pc_imm.sv|RV32I_Single_Cycle/pc_adder.sv|RV32I_Single_Cycle/l1_icache.sv|RV32I_Single_Cycle/instruction_fetch_router.sv|RV32I_Single_Cycle/instruction_memory.sv|RV32I_Single_Cycle/immediate_generator.sv|RV32I_Single_Cycle/control_unit.sv|RV32I_Single_Cycle/branch_unit.sv|RV32I_Single_Cycle/alu_src_b_mux.sv|RV32I_Single_Cycle/alu_src_a_mux.sv|RV32I_Single_Cycle/alu.sv|RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv|RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv|RV32I_Single_Cycle/SRAM1RW256x32.v|AXI/axi_full_if.sv|
 Z12 !s90 -sv|-work|work|-f|filelist_soc.f|
 !i113 0
 Z13 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
@@ -67,7 +68,7 @@ R2
 w1788598353
 8AXI/aes_axi_slave.sv
 FAXI/aes_axi_slave.sv
-!i122 8
+!i122 11
 L0 1 258
 R8
 R9
@@ -92,7 +93,7 @@ R2
 w1788462994
 8AES/rtl/aes_cipher_top.sv
 FAES/rtl/aes_cipher_top.sv
-!i122 8
+!i122 11
 L0 1 73
 R8
 R9
@@ -117,7 +118,7 @@ R2
 Z14 w1788437015
 8AES/rtl/aes_key_expand_step.sv
 FAES/rtl/aes_key_expand_step.sv
-!i122 8
+!i122 11
 L0 1 56
 R8
 R9
@@ -142,7 +143,7 @@ R2
 w1788462833
 8AES/rtl/aes_key_schedule.sv
 FAES/rtl/aes_key_schedule.sv
-!i122 8
+!i122 11
 L0 1 71
 R8
 R9
@@ -167,7 +168,7 @@ R2
 R14
 8AES/rtl/aes_mix_columns.sv
 FAES/rtl/aes_mix_columns.sv
-!i122 8
+!i122 11
 L0 1 58
 R8
 R9
@@ -192,7 +193,7 @@ R2
 R7
 8AES/rtl/aes_rot_word.sv
 FAES/rtl/aes_rot_word.sv
-!i122 8
+!i122 11
 Z15 L0 1 10
 R8
 R9
@@ -217,7 +218,7 @@ R2
 Z16 w1788437032
 8AES/rtl/aes_round.sv
 FAES/rtl/aes_round.sv
-!i122 8
+!i122 11
 Z17 L0 1 32
 R8
 R9
@@ -242,7 +243,7 @@ R2
 R16
 8AES/rtl/aes_round_last.sv
 FAES/rtl/aes_round_last.sv
-!i122 8
+!i122 11
 Z18 L0 1 26
 R8
 R9
@@ -267,7 +268,7 @@ R2
 Z19 w1788436988
 8AES/rtl/aes_sbox.sv
 FAES/rtl/aes_sbox.sv
-!i122 8
+!i122 11
 L0 1 301
 R8
 R9
@@ -292,7 +293,7 @@ R2
 R19
 8AES/rtl/aes_shift_rows.sv
 FAES/rtl/aes_shift_rows.sv
-!i122 8
+!i122 11
 R17
 R8
 R9
@@ -317,7 +318,7 @@ R2
 R19
 8AES/rtl/aes_sub_bytes.sv
 FAES/rtl/aes_sub_bytes.sv
-!i122 8
+!i122 11
 Z20 L0 1 13
 R8
 R9
@@ -342,7 +343,7 @@ R2
 R19
 8AES/rtl/aes_sub_word.sv
 FAES/rtl/aes_sub_word.sv
-!i122 8
+!i122 11
 R20
 R8
 R9
@@ -367,7 +368,7 @@ R2
 Z21 w1788598304
 8RV32I_Single_Cycle/alu.sv
 FRV32I_Single_Cycle/alu.sv
-!i122 8
+!i122 11
 L0 1 27
 R8
 R9
@@ -392,7 +393,7 @@ R2
 R21
 8RV32I_Single_Cycle/alu_src_a_mux.sv
 FRV32I_Single_Cycle/alu_src_a_mux.sv
-!i122 8
+!i122 11
 R15
 R8
 R9
@@ -417,7 +418,7 @@ R2
 R21
 8RV32I_Single_Cycle/alu_src_b_mux.sv
 FRV32I_Single_Cycle/alu_src_b_mux.sv
-!i122 8
+!i122 11
 R15
 R8
 R9
@@ -442,7 +443,7 @@ R2
 w1788597908
 8AXI/axi_full_if.sv
 FAXI/axi_full_if.sv
-!i122 8
+!i122 11
 L0 1 0
 R8
 R9
@@ -467,7 +468,7 @@ R2
 w1788693734
 8AXI/axi_instruction_sram_slave.sv
 FAXI/axi_instruction_sram_slave.sv
-!i122 8
+!i122 11
 L0 1 36
 R8
 R9
@@ -492,7 +493,7 @@ R2
 w1788693939
 8AXI/axi_interconnect_1m4s.sv
 FAXI/axi_interconnect_1m4s.sv
-!i122 8
+!i122 11
 L0 1 330
 R8
 R9
@@ -517,7 +518,7 @@ R2
 w1788604288
 8AXI/axi_master_wrapper.sv
 FAXI/axi_master_wrapper.sv
-!i122 8
+!i122 11
 L0 1 319
 R8
 R9
@@ -542,7 +543,7 @@ R2
 w1788693744
 8AXI/axi_shared_sram_slave.sv
 FAXI/axi_shared_sram_slave.sv
-!i122 8
+!i122 11
 L0 1 35
 R8
 R9
@@ -567,7 +568,7 @@ R2
 w1788693670
 8AXI/axi_sram_controller.sv
 FAXI/axi_sram_controller.sv
-!i122 8
+!i122 11
 L0 1 294
 R8
 R9
@@ -592,7 +593,7 @@ R2
 w1788679177
 8UART/baud_gen.sv
 FUART/baud_gen.sv
-!i122 8
+!i122 11
 L0 1 60
 R8
 R9
@@ -617,7 +618,7 @@ R2
 R21
 8RV32I_Single_Cycle/branch_unit.sv
 FRV32I_Single_Cycle/branch_unit.sv
-!i122 8
+!i122 11
 R17
 R8
 R9
@@ -642,7 +643,7 @@ R2
 R21
 8RV32I_Single_Cycle/control_unit.sv
 FRV32I_Single_Cycle/control_unit.sv
-!i122 8
+!i122 11
 L0 1 101
 R8
 R9
@@ -667,7 +668,7 @@ R2
 w1788697585
 8AXI/cpu_axi_request_arbiter.sv
 FAXI/cpu_axi_request_arbiter.sv
-!i122 8
+!i122 11
 L0 1 143
 R8
 R9
@@ -692,7 +693,7 @@ R2
 R21
 8RV32I_Single_Cycle/immediate_generator.sv
 FRV32I_Single_Cycle/immediate_generator.sv
-!i122 8
+!i122 11
 R17
 R8
 R9
@@ -714,10 +715,10 @@ R3
 IJ5W0:ZU>Wn:X^0_g3[mn90
 S1
 R2
-w1788697416
+w1789010506
 8RV32I_Single_Cycle/instruction_fetch_router.sv
 FRV32I_Single_Cycle/instruction_fetch_router.sv
-!i122 8
+!i122 11
 L0 1 55
 R8
 R9
@@ -735,15 +736,15 @@ R5
 R6
 R3
 !i10b 1
-!s100 z`7J;24k:lgB2S9S45i0[3
-IJf]L76>gS=WhRXiNkXTSK2
+!s100 ^E:bU?T>d[GBE=SYEmRe@3
+IDGC@MT21?FImO8<AQhR@b3
 S1
 R2
-w1788679333
+w1789011842
 8RV32I_Single_Cycle/instruction_memory.sv
 FRV32I_Single_Cycle/instruction_memory.sv
-!i122 8
-L0 1 16
+!i122 11
+L0 14 103
 R8
 R9
 r1
@@ -767,8 +768,33 @@ R2
 w1788691451
 8RV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv
 FRV32I_Single_Cycle/instruction_sram_256x32_wrapper.sv
-!i122 8
+!i122 11
 Z22 L0 1 29
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R4
+vl1_icache
+R5
+R6
+R3
+!i10b 1
+!s100 S1Gc88UGAMj3cKnKfoOJ22
+ITOLB]3z78HR2OG?X6>jCf0
+S1
+R2
+w1788851062
+8RV32I_Single_Cycle/l1_icache.sv
+FRV32I_Single_Cycle/l1_icache.sv
+!i122 11
+L0 1 192
 R8
 R9
 r1
@@ -792,7 +818,7 @@ R2
 R21
 8RV32I_Single_Cycle/pc_adder.sv
 FRV32I_Single_Cycle/pc_adder.sv
-!i122 8
+!i122 11
 R15
 R8
 R9
@@ -817,7 +843,7 @@ R2
 R21
 8RV32I_Single_Cycle/pc_imm.sv
 FRV32I_Single_Cycle/pc_imm.sv
-!i122 8
+!i122 11
 L0 1 22
 R8
 R9
@@ -842,7 +868,7 @@ R2
 R21
 8RV32I_Single_Cycle/program_counter.sv
 FRV32I_Single_Cycle/program_counter.sv
-!i122 8
+!i122 11
 Z23 L0 1 21
 R8
 R9
@@ -867,7 +893,7 @@ R2
 R21
 8RV32I_Single_Cycle/register_file.sv
 FRV32I_Single_Cycle/register_file.sv
-!i122 8
+!i122 11
 R18
 R8
 R9
@@ -892,7 +918,7 @@ R2
 w1788697482
 8RV32I_Single_Cycle/risc_top.sv
 FRV32I_Single_Cycle/risc_top.sv
-!i122 8
+!i122 11
 L0 1 271
 R8
 R9
@@ -917,7 +943,7 @@ R2
 Z24 w1788596847
 8UART/rx_sync.sv
 FUART/rx_sync.sv
-!i122 8
+!i122 11
 R23
 R8
 R9
@@ -942,7 +968,7 @@ R2
 w1788691438
 8RV32I_Single_Cycle/shared_sram_256x32_wrapper.sv
 FRV32I_Single_Cycle/shared_sram_256x32_wrapper.sv
-!i122 8
+!i122 11
 R22
 R8
 R9
@@ -960,15 +986,15 @@ R5
 R6
 R3
 !i10b 1
-!s100 cW590K<l1U_B@_86aPGkU0
-IIgBEUOXMN^CfN6UIUZQf12
+!s100 X>^6@1D6A6LZ116535;hT0
+Id`BEYA<ji>Qii:g88]lzS0
 S1
 R2
-w1788697603
+w1789042765
 8soc_top.sv
 Fsoc_top.sv
-!i122 8
-L0 1 296
+!i122 11
+L0 1 356
 R8
 R9
 r1
@@ -992,7 +1018,7 @@ R2
 Z25 w1788677911
 Z26 8RV32I_Single_Cycle/SRAM1RW256x32.v
 Z27 FRV32I_Single_Cycle/SRAM1RW256x32.v
-!i122 8
+!i122 11
 L0 7 43
 R8
 R9
@@ -1018,7 +1044,7 @@ R2
 R25
 R26
 R27
-!i122 8
+!i122 11
 L0 52 37
 R8
 R9
@@ -1069,7 +1095,7 @@ R2
 w1788694281
 8TB/tb_soc_top.sv
 FTB/tb_soc_top.sv
-!i122 9
+!i122 12
 L0 3 330
 R8
 R9
@@ -1094,7 +1120,7 @@ R2
 w1788598345
 8AXI/uart_axi_slave.sv
 FAXI/uart_axi_slave.sv
-!i122 8
+!i122 11
 L0 1 238
 R8
 R9
@@ -1119,7 +1145,7 @@ R2
 R24
 8UART/uart_core.sv
 FUART/uart_core.sv
-!i122 8
+!i122 11
 L0 1 74
 R8
 R9
@@ -1144,7 +1170,7 @@ R2
 w1788679170
 8UART/uart_rx.sv
 FUART/uart_rx.sv
-!i122 8
+!i122 11
 L0 1 591
 R8
 R9
@@ -1169,7 +1195,7 @@ R2
 w1788679150
 8UART/uart_tx.sv
 FUART/uart_tx.sv
-!i122 8
+!i122 11
 L0 1 440
 R8
 R9
@@ -1194,7 +1220,7 @@ R2
 R21
 8RV32I_Single_Cycle/write_back_mux.sv
 FRV32I_Single_Cycle/write_back_mux.sv
-!i122 8
+!i122 11
 L0 1 20
 R8
 R9

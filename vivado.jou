@@ -1,0 +1,54 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Sep 10 19:50:29 2026
+# Process ID         : 233410
+# Current directory  : /home/trungpham/PROJECT/KLTN
+# Command line       : vivado -mode tcl
+# Log file           : /home/trungpham/PROJECT/KLTN/vivado.log
+# Journal file       : /home/trungpham/PROJECT/KLTN/vivado.jou
+# Running On         : trungp1412
+# Platform           : rhel
+# Operating System   : Red Hat Enterprise Linux 10.2 (Coughlan)"
+RELEASE_TYPE=stable
+# Processor Detail   : AMD Ryzen AI 9 HX 370 w/ Radeon 890M
+# CPU Frequency      : 5130.322 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 32440 MB
+# Swap memory        : 16424 MB
+# Total Virtual      : 48865 MB
+# Available Virtual  : 37976 MB
+#-----------------------------------------------------------
+synth_design \
+      -top soc_top \
+      -part $part_name \
+      -flatten_hierarchy rebuilt
+  report_utilization \
+      -file "$project_root/post_synth_utilization.rpt"
+  report_timing_summary \
+      -delay_type max \
+      -max_paths 20 \
+      -file "$project_root/post_synth_timing_summary.rpt"
+  write_checkpoint -force "$project_root/post_synth.dcp"
+set project_root "/home/trungpham/PROJECT/KLTN"
+  set part_name "xc7a100tcsg324-1"
+  set_part $part_name
+  set fh [open "$project_root/filelist_soc.f" r]
+  while {[gets $fh source_file] >= 0} {
+      set source_file [string trim $source_file]
+
+      if {$source_file eq "" || [string match "#*" $source_file]} {
+          continue
+      }
+
+      read_verilog -sv "$project_root/$source_file"
+  }
+  close $fh
+  read_xdc "$project_root/timing.xdc"
+  synth_design \
+      -top soc_top \
+      -part $part_name \
+      -flatten_hierarchy rebuilt

@@ -1,113 +1,51 @@
-BEGIN 1:aes_axi_slave:fast:work
-    ct_q :  1:tb_soc_top:fast:work
+BEGIN 1:axi_master_wrapper:fast:work
+    next_state :  1:tb_soc_top:fast:work
+    current_state :  1:tb_soc_top:fast:work
+END 
+BEGIN 3:axi_full_if:fast__2:work
+    arlen :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awvalid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awburst :  1:axi_interconnect_1m4s:fast:work
+    arsize :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awready :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    rready :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awaddr :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    bid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    bresp :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awlen :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    rstn :  1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    bvalid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awsize :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    bchk :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    wvalid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    rid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    wready :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    rdata :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    wdata :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    rresp :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    wstrb :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    arprot :  1:axi_interconnect_1m4s:fast:work
+    rlast :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    wlast :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    archk :  1:axi_interconnect_1m4s:fast:work
+    arwakeup :  1:axi_interconnect_1m4s:fast:work
+    rvalid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    bready :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    rchk :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    arvalid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awwakeup :  1:axi_interconnect_1m4s:fast:work
+    arburst :  1:axi_interconnect_1m4s:fast:work
+    arready :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awprot :  1:axi_interconnect_1m4s:fast:work
+    araddr :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    clk :  1:axi_shared_sram_slave:fast:work 1:axi_instruction_sram_slave:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    awchk :  1:axi_interconnect_1m4s:fast:work
+    arid :  1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
+    wchk :  1:axi_interconnect_1m4s:fast:work
 END 
 BEGIN 1:register_file:fast:work
     registers :  1:tb_soc_top:fast:work
-END 
-BEGIN 3:axi_full_if:fast__2:work
-    bchk :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    wvalid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    rid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    wready :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    rdata :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    wdata :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    rresp :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    wstrb :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    arprot :  1:axi_interconnect_1m4s:fast:work
-    rlast :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    wlast :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    archk :  1:axi_interconnect_1m4s:fast:work
-    arwakeup :  1:axi_interconnect_1m4s:fast:work
-    rvalid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    bready :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    rchk :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    arvalid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awwakeup :  1:axi_interconnect_1m4s:fast:work
-    arburst :  1:axi_interconnect_1m4s:fast:work
-    arready :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awprot :  1:axi_interconnect_1m4s:fast:work
-    araddr :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    clk :  1:axi_sram_controller:fast:work 1:axi_shared_sram_slave:fast:work 1:axi_instruction_sram_slave:fast:work 1:axi_sram_controller:fast__1:work
-    awchk :  1:axi_interconnect_1m4s:fast:work
-    arid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    wchk :  1:axi_interconnect_1m4s:fast:work
-    arlen :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awvalid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awburst :  1:axi_interconnect_1m4s:fast:work
-    arsize :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awready :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    rready :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awaddr :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    bid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    bresp :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awlen :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    rstn :  1:axi_sram_controller:fast:work 1:axi_sram_controller:fast__1:work
-    bvalid :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-    awsize :  1:axi_sram_controller:fast:work 1:axi_interconnect_1m4s:fast:work 1:axi_sram_controller:fast__1:work
-END 
-BEGIN 1:axi_sram_controller:fast:work
-    aw_captured_q :  1:tb_soc_top:fast:work
-    rstate_q :  1:tb_soc_top:fast:work
-    wstate_q :  1:tb_soc_top:fast:work
-    w_captured_q :  1:tb_soc_top:fast:work
-END 
-BEGIN 1:axi_shared_sram_slave:fast:work
-    sram_me :  1:tb_soc_top:fast:work
-    sram_addr :  1:tb_soc_top:fast:work
-    sram_we :  1:tb_soc_top:fast:work
-    sram_rdata :  1:tb_soc_top:fast:work
-END 
-BEGIN 1:risc_top:fast:work
-    instr_debug :  1:tb_soc_top:fast:work
-    pc_debug :  1:tb_soc_top:fast:work
-END 
-BEGIN 1:uart_axi_slave:fast:work
-    tx_data_q :  1:tb_soc_top:fast:work
-    uart_tx_ready :  1:tb_soc_top:fast:work
-    tx_pending_q :  1:tb_soc_top:fast:work
-END 
-BEGIN 3:axi_full_if:fast__3:work
-    rresp :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awvalid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    rid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    rlast :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awprot :  1:axi_interconnect_1m4s:fast:work
-    rdata :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    rready :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    wready :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arprot :  1:axi_interconnect_1m4s:fast:work
-    rchk :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    bid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    archk :  1:axi_interconnect_1m4s:fast:work
-    bresp :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    rvalid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awchk :  1:axi_interconnect_1m4s:fast:work
-    wlast :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    wdata :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awready :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    wstrb :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    wchk :  1:axi_interconnect_1m4s:fast:work
-    bvalid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    bready :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    bchk :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arwakeup :  1:axi_interconnect_1m4s:fast:work
-    awid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    clk :  1:aes_axi_slave:fast:work 1:uart_axi_slave:fast:work
-    araddr :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awwakeup :  1:axi_interconnect_1m4s:fast:work
-    wvalid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    rstn :  1:aes_axi_slave:fast:work 1:uart_axi_slave:fast:work
-    arlen :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awaddr :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arsize :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awlen :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arburst :  1:axi_interconnect_1m4s:fast:work
-    awsize :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arready :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    arvalid :  1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work 1:uart_axi_slave:fast:work
-    awburst :  1:axi_interconnect_1m4s:fast:work
 END 
 BEGIN 1:axi_interconnect_1m4s:fast:work
     wr_sel_q :  1:tb_soc_top:fast:work
@@ -115,55 +53,117 @@ BEGIN 1:axi_interconnect_1m4s:fast:work
     wr_active_q :  1:tb_soc_top:fast:work
     rd_active_q :  1:tb_soc_top:fast:work
 END 
+BEGIN 1:axi_sram_controller:fast:work
+    w_captured_q :  1:tb_soc_top:fast:work
+    aw_captured_q :  1:tb_soc_top:fast:work
+    rstate_q :  1:tb_soc_top:fast:work
+    wstate_q :  1:tb_soc_top:fast:work
+END 
+BEGIN 3:axi_full_if:fast__3:work
+    awid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    clk :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work
+    araddr :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awwakeup :  1:axi_interconnect_1m4s:fast:work
+    wvalid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    rstn :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work
+    arlen :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awaddr :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arsize :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awlen :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arburst :  1:axi_interconnect_1m4s:fast:work
+    awsize :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arready :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arvalid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awburst :  1:axi_interconnect_1m4s:fast:work
+    rresp :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awvalid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    rid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    rlast :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awprot :  1:axi_interconnect_1m4s:fast:work
+    rdata :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    rready :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    wready :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arprot :  1:axi_interconnect_1m4s:fast:work
+    rchk :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    bid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    archk :  1:axi_interconnect_1m4s:fast:work
+    wstrb :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    rvalid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awchk :  1:axi_interconnect_1m4s:fast:work
+    bvalid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    wdata :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    awready :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    bresp :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    wchk :  1:axi_interconnect_1m4s:fast:work
+    wlast :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    bready :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    bchk :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arid :  1:uart_axi_slave:fast:work 1:aes_axi_slave:fast:work 1:axi_interconnect_1m4s:fast:work
+    arwakeup :  1:axi_interconnect_1m4s:fast:work
+END 
+BEGIN 1:axi_shared_sram_slave:fast:work
+    sram_me :  1:tb_soc_top:fast:work
+    sram_addr :  1:tb_soc_top:fast:work
+    sram_we :  1:tb_soc_top:fast:work
+    sram_rdata :  1:tb_soc_top:fast:work
+END 
+BEGIN 1:aes_axi_slave:fast:work
+    ct_q :  1:tb_soc_top:fast:work
+END 
+BEGIN 1:risc_top:fast:work
+    pc_debug :  1:tb_soc_top:fast:work
+    instr_debug :  1:tb_soc_top:fast:work
+END 
 BEGIN 1:soc_top:fast:work
     cpu_mem_stall :  1:tb_soc_top:fast:work
     cpu_mem_write :  1:tb_soc_top:fast:work
     cpu_mem_read :  1:tb_soc_top:fast:work
     cpu_mem_addr :  1:tb_soc_top:fast:work
 END 
-BEGIN 1:axi_master_wrapper:fast:work
-    current_state :  1:tb_soc_top:fast:work
-    next_state :  1:tb_soc_top:fast:work
+BEGIN 1:uart_axi_slave:fast:work
+    tx_pending_q :  1:tb_soc_top:fast:work
+    tx_data_q :  1:tb_soc_top:fast:work
+    uart_tx_ready :  1:tb_soc_top:fast:work
 END 
 BEGIN 3:axi_full_if:fast__1:work
-    wlast :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    arprot :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    rvalid :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    rdata :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    archk :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    arready :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    wstrb :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    clk :  1:axi_interconnect_1m4s:fast:work
-    awvalid :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    wvalid :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    rchk :  1:axi_interconnect_1m4s:fast:work
-    rstn :  1:axi_interconnect_1m4s:fast:work
-    awwakeup :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    arid :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    awlen :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    awsize :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    arlen :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    rready :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    rresp :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work
-    bvalid :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    wchk :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    bresp :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work
-    awready :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    awprot :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    awchk :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    awid :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    awburst :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    rlast :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    wready :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    bready :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    araddr :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    arwakeup :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
-    wdata :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    awaddr :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    arsize :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
+    bready :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    araddr :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    arvalid :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    wdata :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    arlen :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    arsize :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
     bchk :  1:axi_interconnect_1m4s:fast:work
     bid :  1:axi_interconnect_1m4s:fast:work
-    arvalid :  1:axi_interconnect_1m4s:fast:work 1:tb_soc_top:fast:work 1:axi_master_wrapper:fast:work
-    arburst :  1:axi_interconnect_1m4s:fast:work 1:axi_master_wrapper:fast:work
+    clk :  1:axi_interconnect_1m4s:fast:work
+    arburst :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
     rid :  1:axi_interconnect_1m4s:fast:work
+    rstn :  1:axi_interconnect_1m4s:fast:work
+    arprot :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    rvalid :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    rdata :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    archk :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    arready :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    wstrb :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    arwakeup :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    awvalid :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    wvalid :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    rchk :  1:axi_interconnect_1m4s:fast:work
+    awaddr :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    awwakeup :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    arid :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    awlen :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    awsize :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    wlast :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    rready :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    rresp :  1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    bvalid :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    wchk :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    bresp :  1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    awready :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
+    awprot :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    awchk :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    awid :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    awburst :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    rlast :  1:axi_master_wrapper:fast:work 1:axi_interconnect_1m4s:fast:work
+    wready :  1:axi_master_wrapper:fast:work 1:tb_soc_top:fast:work 1:axi_interconnect_1m4s:fast:work
 END 

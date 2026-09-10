@@ -1,19 +1,4 @@
-# //  Questa Altera Starter FPGA Edition-64
-# //  Version 2025.2 linux_x86_64 May 31 2025
-# //
-# // Unpublished work. Copyright 2025 Siemens
-# //
-# // This material contains trade secrets or otherwise confidential information
-# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
-# // "SISW"), or its licensors. Access to and use of this information is strictly
-# // limited as set forth in the Customer's applicable agreements with SISW.
-# //
-# // This material may not be copied, distributed, or otherwise disclosed outside
-# // of the Customer's facilities without the express written permission of SISW,
-# // and may not be used in any way not expressly authorized by SISW.
-# //
-# OpenFile uart_boot_aes_run.log
-# do Do/run_uart_boot.do
+# do Do/run.do
 # onerror {quit -force -code 1}
 # onbreak {resume}
 # 
@@ -28,7 +13,8 @@
 #     }
 # 
 #     # Separate library, firmware copy and simulation outputs for each test.
-#     # instruction_memory still reads program.hex; no RTL change is needed.
+#     # Keep a local copy for legacy test flows and debug visibility. The UART
+#     # Boot ROM is hard-wired and does not depend on this file at runtime.
 #     set run_dir [file join $soc_project_root sim $top]
 #     set lib_dir [file join $run_dir work]
 #     file mkdir $run_dir
@@ -70,11 +56,9 @@
 #     }
 #     puts "PASS: $top"
 # }
-# /home/trungpham/PROJECT/KLTN
-# /home/trungpham/PROJECT/KLTN/sim/tb_soc_uart_boot
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 16:24:03 on Sep 08,2026
-# vlog -reportprogress 300 -sv -work work -f filelist_soc.f 
+# Start time: 19:26:16 on Sep 10,2026
+# vlog -sv -work work -f filelist_soc.f 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling interface axi_full_if
 # -- Compiling module SRAM1RW256x32
@@ -125,25 +109,42 @@
 # 
 # Top level modules:
 # 	soc_top
-# End time: 16:24:03 on Sep 08,2026, Elapsed time: 0:00:00
+# End time: 19:26:16 on Sep 10,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 16:24:03 on Sep 08,2026
-# vlog -reportprogress 300 -sv -work work TB/tb_soc_uart_boot.sv 
+# Start time: 19:26:16 on Sep 10,2026
+# vlog -sv -work work TB/tb_soc_top.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
-# -- Compiling module tb_soc_uart_boot
+# -- Compiling module tb_soc_top
 # 
 # Top level modules:
-# 	tb_soc_uart_boot
-# End time: 16:24:03 on Sep 08,2026, Elapsed time: 0:00:00
+# 	tb_soc_top
+# End time: 19:26:16 on Sep 10,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # reading /home/trungpham/EDA/quartus/questa_fse/linux_x86_64/../modelsim.ini
 # ** Note: (vsim-220) '/home/trungpham/EDA/quartus/questa_fse/linux_x86_64/../modelsim.ini' is used as the ini file.
-# vsim -onfinish stop -voptargs="+acc" -wlf tb_soc_uart_boot.wlf work.tb_soc_uart_boot 
-# Start time: 16:24:03 on Sep 08,2026
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# vsim -onfinish stop -voptargs="+acc" -wlf tb_soc_top.wlf work.tb_soc_top 
+# Start time: 19:26:16 on Sep 10,2026
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) '/home/trungpham/EDA/quartus/questa_fse/linux_x86_64/../modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 linux_x86_64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
 # Loading sv_std.std
-# Loading work.tb_soc_uart_boot(fast)
+# Loading work.tb_soc_top(fast)
 # Loading work.soc_top(fast)
 # Loading work.axi_full_if(fast__1)
 # Loading work.axi_full_if(fast__2)
@@ -194,62 +195,85 @@
 # Loading work.aes_mix_columns(fast)
 # Loading work.aes_round_last(fast)
 # 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
 # ============================================================
-#  UART BOOT -> INSTRUCTION SRAM -> I-CACHE -> AES-256 TEST
+#  SoC smoke test started
+#  SRAM -> AES-256 -> UART
 # ============================================================
-# ============================================================
-#  UART BOOT + AES-256 SYSTEM TEST PASSED
-# ============================================================
-#  Boot ROM ready response                    : R
-#  Firmware words transferred over UART       : 67
-#  Boot checksum response                     : K
-#  Instruction SRAM AXI AW/W/B                : 67/67/67
-#  Instruction refill AXI AR/R                : 68/68
-#  L1 I-cache hit/miss cycles                 : 74/17
-#  AES-256 ciphertext                         : 8ea2b7ca516745bfeafc49904b496089
-# ============================================================
-# ** Note: $finish    : /home/trungpham/PROJECT/KLTN/TB/tb_soc_uart_boot.sv(312)
-#    Time: 229995 ns  Iteration: 1  Instance: /tb_soc_uart_boot
-# Break in NamedBeginStat uart_boot_test at /home/trungpham/PROJECT/KLTN/TB/tb_soc_uart_boot.sv line 312
-# End time: 16:24:44 on Sep 08,2026, Elapsed time: 0:00:41
-# Errors: 0, Warnings: 0
+# 
+# [T=1450000] PC=00000004 INSTR=00042823 stall=0 read=0 write=1 addr=10000010
+#  MASTER state=6 next=0
+#  AW  v/r=0/1 addr=10000010
+#  W   v/r=0/0 data=00000000 strb=0000
+#  B   v/r=0/0 resp=00
+#  AR  v/r=0/1 addr=10000010
+#  R   v/r=0/0 data=00000000 resp=00
+#  IC wr_active=0 wr_sel=2 rd_active=0 rd_sel=4
+#  SRAM Wstate=0 AWcap=0 Wcap=0 Rstate=0 ME=0 WE=0 A=0 RDATA=xxxxxxxx
+# 
+# [T=1550000] PC=00000004 INSTR=00042823 stall=0 read=0 write=0 addr=00000003
+#  MASTER state=0 next=0
+#  AW  v/r=0/1 addr=10000010
+#  W   v/r=0/0 data=00000000 strb=0000
+#  B   v/r=0/0 resp=00
+#  AR  v/r=0/1 addr=10000010
+#  R   v/r=0/0 data=00000000 resp=00
+#  IC wr_active=0 wr_sel=2 rd_active=0 rd_sel=4
+#  SRAM Wstate=0 AWcap=0 Wcap=0 Rstate=0 ME=0 WE=0 A=0 RDATA=xxxxxxxx
+# 
+# [T=1650000] PC=00000008 INSTR=00300293 stall=1 read=0 write=1 addr=1000000c
+#  MASTER state=0 next=1
+#  AW  v/r=0/1 addr=10000010
+#  W   v/r=0/0 data=00000000 strb=0000
+#  B   v/r=0/0 resp=00
+#  AR  v/r=0/1 addr=10000010
+#  R   v/r=0/0 data=00000000 resp=00
+#  IC wr_active=0 wr_sel=2 rd_active=0 rd_sel=4
+#  SRAM Wstate=0 AWcap=0 Wcap=0 Rstate=0 ME=0 WE=0 A=0 RDATA=xxxxxxxx
+# 
+# [T=1750000] PC=0000000c INSTR=00542623 stall=1 read=0 write=1 addr=1000000c
+#  MASTER state=1 next=2
+#  AW  v/r=1/1 addr=1000000c
+#  W   v/r=0/0 data=00000000 strb=0000
+#  B   v/r=0/0 resp=00
+#  AR  v/r=0/1 addr=1000000c
+#  R   v/r=0/0 data=00000000 resp=00
+#  IC wr_active=0 wr_sel=2 rd_active=0 rd_sel=4
+#  SRAM Wstate=0 AWcap=0 Wcap=0 Rstate=0 ME=0 WE=0 A=0 RDATA=xxxxxxxx
+# 
+# [T=1850000] PC=0000000c INSTR=00542623 stall=1 read=0 write=1 addr=1000000c
+#  MASTER state=2 next=3
+#  AW  v/r=0/0 addr=1000000c
+#  W   v/r=1/1 data=00000003 strb=1111
+#  B   v/r=0/0 resp=00
+#  AR  v/r=0/1 addr=1000000c
+#  R   v/r=0/0 data=00000000 resp=00
+#  IC wr_active=1 wr_sel=2 rd_active=0 rd_sel=4
+#  SRAM Wstate=0 AWcap=0 Wcap=0 Rstate=0 ME=0 WE=0 A=0 RDATA=xxxxxxxx
+# 
+# [T=1950000] PC=0000000c INSTR=00542623 stall=1 read=0 write=1 addr=1000000c
+#  MASTER state=3 next=3
+#  AW  v/r=0/0 addr=1000000c
+#  W   v/r=0/0 data=00000000 strb=0000
+#  B   v/r=0/1 resp=00
+#  AR  v/r=0/1 addr=1000000c
+#  R   v/r=0/0 data=00000000 resp=00
+#  IC wr_active=1 wr_sel=2 rd_active=0 rd_sel=4
+#  SRAM Wstate=0 AWcap=0 Wcap=0 Rstate=0 ME=0 WE=0 A=0 RDATA=xxxxxxxx
+# [3450000] UART accepted byte 0x52 ('R')
+# 
+# TIMEOUT
+# PC           = 0x00000124
+# INSTR        = 0x00842283
+# CPU stall    = 1
+# AES done     = 0
+# UART TX      = 1
+# AXI AW count = 3
+# AXI AR count = 3329
+# ** Fatal: SOC SMOKE TEST TIMEOUT
+#    Time: 200075 ns  Scope: tb_soc_top.test_control.timeout_thread File: /home/trungpham/PROJECT/KLTN/TB/tb_soc_top.sv Line: 247
+# ** Note: $finish    : /home/trungpham/PROJECT/KLTN/TB/tb_soc_top.sv(247)
+#    Time: 200075 ns  Iteration: 1  Instance: /tb_soc_top
+# Break in NamedBeginStat timeout_thread at /home/trungpham/PROJECT/KLTN/TB/tb_soc_top.sv line 247
+# Stopped at /home/trungpham/PROJECT/KLTN/TB/tb_soc_top.sv line 247
+# End time: 19:26:19 on Sep 10,2026, Elapsed time: 0:00:03
+# Errors: 1, Warnings: 1

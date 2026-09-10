@@ -16,7 +16,7 @@ Z2 d/home/trungpham/PROJECT/KLTN
 T_opt
 !i145 1
 !i144 0
-Z3 !s110 1788852979
+!s110 1788852979
 VB64lDJ^cO0@nFFEY`oP`@1
 04 12 4 work tb_l1_icache fast 0
 =1-14ac606edb59-6a9fbaf3-5f752-6e1b
@@ -26,13 +26,14 @@ R1
 !s124 OEM10U2 
 !s135 nogc
 o-quiet -auto_acc_if_foreign -work work +acc
-Z4 tCvgOpt 0
+Z3 tCvgOpt 0
 n@_opt
 OL;O;2025.2;82
+R2
 vl1_icache
 2RV32I_Single_Cycle/l1_icache.sv
-Z5 DXx6 sv_std 3 std 0 22 @5XbY]_OacJl=`ToSm<M^0
-R3
+Z4 DXx6 sv_std 3 std 0 22 @5XbY]_OacJl=`ToSm<M^0
+Z5 !s110 1789043063
 !i10b 1
 !s100 S1Gc88UGAMj3cKnKfoOJ22
 ITOLB]3z78HR2OG?X6>jCf0
@@ -41,23 +42,23 @@ R2
 w1788851062
 8RV32I_Single_Cycle/l1_icache.sv
 FRV32I_Single_Cycle/l1_icache.sv
-!i122 10
+!i122 12
 L0 1 192
 Z6 VDg1SIo80bB@j0V0VzS_@n1
 Z7 OL;L;2025.2;82
 r1
 !s85 0
 31
-Z8 !s108 1788852979.000000
+Z8 !s108 1789043063.000000
 !s107 RV32I_Single_Cycle/l1_icache.sv|
 !s90 -sv|-work|work|RV32I_Single_Cycle/l1_icache.sv|
 !i113 0
 Z9 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-R4
+R3
 vtb_l1_icache
 2TB/tb_l1_icache.sv
+R4
 R5
-R3
 !i10b 1
 !s100 I^gR>_JF=@oLXIQ:QNakg2
 I;U;bRA2H;YEQzWc^0@oY90
@@ -66,7 +67,7 @@ R2
 w1788852921
 8TB/tb_l1_icache.sv
 FTB/tb_l1_icache.sv
-!i122 11
+!i122 13
 L0 3 190
 R6
 R7
@@ -78,4 +79,4 @@ R8
 !s90 -sv|-work|work|TB/tb_l1_icache.sv|
 !i113 0
 R9
-R4
+R3

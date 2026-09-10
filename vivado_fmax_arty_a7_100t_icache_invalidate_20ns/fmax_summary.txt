@@ -1,0 +1,8 @@
+part=xc7a100tcsg324-1
+target_period_ns=20.000
+wns_ns=-0.040
+path_requirement_ns=20.000
+datapath_delay_ns=19.599
+estimated_fmax_mhz=49.9001996007984
+startpoint=u_cpu/dut_pc/pc_reg[5]_rep__1/C
+endpoint=u_cpu/dut_pc/pc_reg[6]_rep__3/D

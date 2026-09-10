@@ -1,0 +1,3 @@
+aes_axi_slave
+soc_top__GB1
+soc_top__GB2

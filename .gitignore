@@ -1,0 +1,14 @@
+# Generated simulation waveforms and logs
+*.vcd
+*.wlf
+transcript
+
+# Simulator/Vivado generated state and build outputs
+.Xil/
+sim/*/work/
+*.jou
+*.log
+*.dcp
+*.rpt
+*.wdb
+
