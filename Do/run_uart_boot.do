@@ -13,7 +13,8 @@ file mkdir $uart_boot_run_dir
 file copy -force firmware/uart_payload.hex \
     [file join $uart_boot_run_dir uart_payload.hex]
 
-# soc_prepare copies this image to program.hex for instruction_memory.sv.
+# This argument is retained for compatibility with soc_prepare. The Boot ROM
+# is hard-wired in instruction_memory.sv and does not read program.hex.
 soc_prepare tb_soc_uart_boot firmware/program_uart_boot.hex
 
 catch {add wave -divider "UART BOOT PINS"}

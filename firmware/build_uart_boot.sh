@@ -60,6 +60,12 @@ PY
 build_image "${FW_DIR}/uart_bootloader.S" 0x00000000 program_uart_boot
 build_image "${FW_DIR}/uart_payload.S"    0x00010000 uart_payload
 
+# Convert the Boot ROM image into synthesizable hard-wired RTL. The final SoC
+# therefore has no run-time $readmemh dependency in its Boot ROM.
+python3 "${FW_DIR}/gen_hardcoded_boot_rom.py" \
+    "${FW_DIR}/program_uart_boot.hex" \
+    "${PROJECT_ROOT}/RV32I_Single_Cycle/instruction_memory.sv"
+
 payload_bytes=$(stat -c %s "${FW_DIR}/uart_payload.bin")
 if (( payload_bytes == 0 || payload_bytes > 1024 || payload_bytes % 4 != 0 )); then
     echo "ERROR: UART payload must contain 1..1024 bytes and be word-aligned."

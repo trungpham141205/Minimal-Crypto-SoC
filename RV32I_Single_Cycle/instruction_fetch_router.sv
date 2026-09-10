@@ -40,8 +40,8 @@ module instruction_fetch_router #(
         axi_fetch_addr_o = fetch_addr_i;
 
         if (fetch_req_i && boot_rom_selected) begin
-            // Boot ROM is a combinational instruction source in the current
-            // model, therefore a request is valid immediately.
+            // The hard-wired Boot ROM is a combinational instruction source,
+            // therefore a request is valid immediately.
             fetch_instr_o = boot_rom_instruction;
             fetch_valid_o = 1'b1;
         end

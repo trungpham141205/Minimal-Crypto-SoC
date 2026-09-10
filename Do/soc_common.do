@@ -14,7 +14,8 @@ proc soc_prepare {top firmware} {
     }
 
     # Separate library, firmware copy and simulation outputs for each test.
-    # instruction_memory still reads program.hex; no RTL change is needed.
+    # Keep a local copy for legacy test flows and debug visibility. The UART
+    # Boot ROM is hard-wired and does not depend on this file at runtime.
     set run_dir [file join $soc_project_root sim $top]
     set lib_dir [file join $run_dir work]
     file mkdir $run_dir
