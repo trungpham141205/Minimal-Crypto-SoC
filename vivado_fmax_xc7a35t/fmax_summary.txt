@@ -1,8 +1,0 @@
-part=xc7a35tcpg236-1
-target_period_ns=5.000
-wns_ns=-16.175
-path_requirement_ns=5.000
-datapath_delay_ns=20.676
-estimated_fmax_mhz=47.22550177095631
-startpoint=u_cpu/dut_pc/pc_reg[5]/C
-endpoint=u_cpu/dut_pc/pc_reg[4]_rep__6/D

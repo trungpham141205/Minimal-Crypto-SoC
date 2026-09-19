@@ -11,5 +11,9 @@ sim/*/work/
 *.dcp
 *.rpt
 *.wdb
+*.pb
+*.str
+xsim.dir/
 build/
 __pycache__/
+/uart_payload.hex

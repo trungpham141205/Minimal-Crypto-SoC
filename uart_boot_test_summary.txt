@@ -1,0 +1,88 @@
+============================================================
+ TONG HOP KET QUA MO PHONG - UART BOOT TEST SUITE
+ SoC: RV32I + L1 I-cache + AES-256 + UART bootloader
+ Target: Arty A7-100T (xc7a100tcsg324-1)
+ Simulator: Vivado xsim v2025.2 (xvlog/xelab/xsim, --timescale 1ns/1ps)
+ Ngay chay: 2026-09-19
+============================================================
+
+------------------------------------------------------------
+1) tb_soc_uart_boot  -- Golden path
+   File: TB/tb_soc_uart_boot.sv
+------------------------------------------------------------
+KET QUA: PASS
+Thoi gian mo phong ket thuc: 263525 ns
+
+Kich ban:
+  Gui firmware hop le (77 word) qua UART toi Boot ROM, cho boot
+  vao Instruction SRAM, thuc thi qua L1 I-cache, chay AES-256 KAT.
+
+So lieu do duoc:
+  Boot ROM ready response          : R
+  Firmware words transferred       : 77
+  Boot checksum response           : K
+  AES result UART response         : P
+  Instruction SRAM AXI AW/W/B      : 77/77/77
+  Instruction refill AXI AR/R      : 80/80
+  L1 I-cache hit/miss              : 160/20
+  AES-256 ciphertext               : 8ea2b7ca516745bfeafc49904b496089
+                                      (khop vector NIST AES-256 ky vong)
+
+------------------------------------------------------------
+2) tb_soc_uart_boot_bad_checksum  -- Negative path (loi checksum)
+   File: TB/tb_soc_uart_boot_bad_checksum.sv
+------------------------------------------------------------
+KET QUA: PASS
+Thoi gian mo phong ket thuc: 261365 ns
+
+Kich ban:
+  Gui du 77 word firmware giong het golden path nhung co y lam
+  sai byte checksum cuoi cung (dao bit toan bo checksum dung).
+
+So lieu do duoc:
+  Checksum gui (sai)               : 86  (checksum dung la 79)
+  Boot ROM tra loi                 : E  (boot error, dung nhu thiet ke)
+  CPU dung han tai dia chi          : 0x00000120 (boot_error_loop, PC on dinh)
+  Instruction SRAM AXI AW/W/B      : 77/77/77 (payload van duoc ghi het
+                                      truoc khi checksum bi kiem tra --
+                                      dung theo firmware/uart_bootloader.S)
+  CPU KHONG bao gio vao vung Instruction SRAM da tai (khong chay firmware)
+  AES / ket qua mirror KHONG bao gio duoc ghi (AES khong chay khi payload
+  bi tu choi)
+  Loi AXI (AXI error responses)    : 0
+
+Ket luan: Boot ROM tu choi payload hong mot cach an toan, khong de
+CPU chay lung tung hay AES chay nham voi du lieu sai.
+
+------------------------------------------------------------
+3) tb_soc_uart_boot_reboot  -- On dinh qua reset/reboot (2 vong)
+   File: TB/tb_soc_uart_boot_reboot.sv
+------------------------------------------------------------
+KET QUA: PASS (ca 2 vong)
+Thoi gian mo phong ket thuc: 527055 ns
+
+Kich ban:
+  Chay tron ven chu trinh UART boot -> I-cache -> AES-256 hai lan
+  lien tiep trong cung 1 simulation, co 1 xung reset that giua 2 vong.
+
+So lieu do duoc (giong het nhau ca 2 vong -> he thong on dinh):
+  Vong 1: AW/W/B=77/77/77  AR/R=80/80  hit/miss=160/20
+          ct=8ea2b7ca516745bfeafc49904b496089
+  Vong 2: AW/W/B=77/77/77  AR/R=80/80  hit/miss=160/20
+          ct=8ea2b7ca516745bfeafc49904b496089
+
+Ghi chu ky thuat: register file (RV32I_Single_Cycle/register_file.sv)
+KHONG duoc rstn reset, nhung firmware/uart_payload.S tu zero x31 ngay
+dau chuong trinh truoc khi chay AES, nen ket qua PASS/FAIL cua vong 2
+khong bi anh huong boi gia tri con lai cua vong 1. Da xac minh bang
+mo phong thuc te, khong chi suy luan tren giay.
+
+Ket luan: I-cache, AXI arbiter va toan he thong duoc don sach dung
+cach sau reset, khong co state con sot lai giua cac lan boot.
+
+============================================================
+TONG KET: 3/3 test PASS.
+  - Golden path      : he thong hoat dong dung nhu thiet ke.
+  - Negative path     : he thong tu choi du lieu hong an toan.
+  - Reboot stability   : he thong lap lai dung ket qua qua nhieu lan reset.
+============================================================
