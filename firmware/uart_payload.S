@@ -115,12 +115,27 @@ poll_aes:
 
 pass:
     addi  x31, x0, 1
+    addi  x5, x0, 0x50           # 'P': AES result matches every word.
+    jal   x1, report_result
 
 pass_loop:
     jal   x0, pass_loop
 
 fail:
     addi  x31, x0, 2
+    addi  x5, x0, 0x46           # 'F': at least one word differs.
+    jal   x1, report_result
 
 fail_loop:
     jal   x0, fail_loop
+
+# The bootloader enabled UART at 115200 baud before jumping here. Poll the
+# transmitter so the result byte cannot be dropped while 'K' is still leaving.
+report_result:
+    lui   x8, 0x10000
+report_wait:
+    lw    x6, 8(x8)
+    andi  x6, x6, 1
+    beq   x6, x0, report_wait
+    sw    x5, 0(x8)
+    jalr  x0, 0(x1)

@@ -33,9 +33,14 @@ start:
     # UART_BASE = 0x1000_0000
     lui   x8, 0x10000
 
-    # Fast simulation baud setting. Replace zero with the board-specific
-    # divider for FPGA/ASIC operation.
+#ifdef BOARD_UART_DIVIDER
+    # (1000/21) MHz / (8 * (51 + 1)) = 114468.9 baud (0.63% below 115200).
+    addi  x5, x0, BOARD_UART_DIVIDER
+    sw    x5, 16(x8)
+#else
+    # Fast simulation setting, used by the existing RTL testbench.
     sw    x0, 16(x8)
+#endif
 
     # CONTROL[1:0] = RX_EN | TX_EN
     addi  x5, x0, 3
@@ -182,4 +187,3 @@ uart_putc_poll:
     beq   x5, x0, uart_putc_poll
     sw    x10, 0(x8)
     jalr  x0, 0(x1)
-

@@ -1,6 +1,6 @@
 -------------------------------------
 | Tool Version : Vivado v.2025.2
-| Date         : Thu Sep 10 19:29:50 2026
+| Date         : Sat Sep 12 12:45:03 2026
 | Host         : trungp1412
 | Design       : design_1
 | Device       : xc7a100t-csg324-1--

@@ -6,7 +6,7 @@ module tb_soc_uart_boot;
 
     localparam time         CLK_PERIOD      = 10ns;
     localparam int unsigned UART_BIT_CLKS   = 8;
-    localparam int unsigned PAYLOAD_WORDS   = 67;
+    localparam int unsigned PAYLOAD_WORDS   = 77;
     localparam int unsigned TIMEOUT_CYCLES  = 500_000;
 
     localparam logic [31:0] INSTR_BASE      = 32'h0001_0000;
@@ -247,6 +247,10 @@ module tb_soc_uart_boot;
         if (response !== 8'h4b)
             $fatal(1, "Boot failed: expected 'K', received %02h", response);
 
+        uart_recv_byte(response);
+        if (response !== 8'h50)
+            $fatal(1, "AES result failed: expected 'P', received %02h", response);
+
         wait ((dut.u_cpu.dut_register_file.registers[31] === 32'd1) ||
               (dut.u_cpu.dut_register_file.registers[31] === 32'd2));
         repeat (32) @(posedge clk);
@@ -297,6 +301,7 @@ module tb_soc_uart_boot;
         $display(" Boot ROM ready response                    : R");
         $display(" Firmware words transferred over UART       : %0d", PAYLOAD_WORDS);
         $display(" Boot checksum response                     : K");
+        $display(" AES result UART response                   : P");
         $display(" Instruction SRAM AXI AW/W/B                : %0d/%0d/%0d",
                  instr_aw_count, instr_w_count, instr_b_count);
         $display(" Instruction refill AXI AR/R                : %0d/%0d",

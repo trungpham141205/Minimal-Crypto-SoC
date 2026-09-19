@@ -1,0 +1,643 @@
+
+================================================================================
+FILE: arty_a7_top.sv
+================================================================================
+
+// Arty A7-100T: 100 MHz oscillator -> 47.619 MHz SoC clock.
+module arty_a7_top (
+    input  logic clk100,
+    input  logic btn_reset,
+    input  logic uart_rx_i,
+    output logic uart_tx_o,
+    output logic [2:0] led
+);
+    logic clk48_unbuffered;
+    logic clk48;
+    logic clk_feedback_unbuffered;
+    logic clk_feedback;
+    logic mmcm_locked;
+    logic [1:0] reset_sync = 2'b00;
+    logic soc_rstn;
+    logic cpu_stall;
+    logic aes_done;
+
+    // VCO = 100 * 10 = 1000 MHz; CLKOUT0 = 1000 / 21 = 47.619 MHz.
+    MMCME2_BASE #(
+        .BANDWIDTH("OPTIMIZED"),
+        .CLKIN1_PERIOD(10.0),
+        .DIVCLK_DIVIDE(1),
+        .CLKFBOUT_MULT_F(10.0),
+        .CLKOUT0_DIVIDE_F(21.0),
+        .CLKOUT0_DUTY_CYCLE(0.5),
+        .STARTUP_WAIT("FALSE")
+    ) u_mmcm (
+        .CLKIN1(clk100),
+        .CLKFBIN(clk_feedback),
+        .RST(1'b0),
+        .PWRDWN(1'b0),
+        .CLKFBOUT(clk_feedback_unbuffered),
+        .CLKOUT0(clk48_unbuffered),
+        .LOCKED(mmcm_locked)
+    );
+
+    BUFG u_feedback_buf (.I(clk_feedback_unbuffered), .O(clk_feedback));
+    BUFG u_soc_clk_buf (.I(clk48_unbuffered), .O(clk48));
+
+   always_ff @(posedge clk48 or negedge mmcm_locked or posedge btn_reset) begin
+        if (!mmcm_locked || btn_reset)
+            reset_sync <= 2'b00;
+        else
+            reset_sync <= {reset_sync[0], 1'b1};
+    end
+    assign soc_rstn = reset_sync[1];
+
+    soc_top u_soc (
+        .clk(clk48),
+        .rstn(soc_rstn),
+        .uart_rx_i(uart_rx_i),
+        .uart_tx_o(uart_tx_o),
+        .cpu_stall_debug(cpu_stall),
+        .aes_done_debug(aes_done)
+    );
+
+    assign led = {aes_done, cpu_stall, mmcm_locked};
+endmodule
+
+
+================================================================================
+FILE: arty_a7_100t.xdc
+================================================================================
+
+# Digilent Arty A7-100 Rev. D/E pin map.
+set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports clk100]
+create_clock -name clk100 -period 10.000 [get_ports clk100]
+set_property -dict {PACKAGE_PIN D9 IOSTANDARD LVCMOS33} [get_ports btn_reset]
+set_property -dict {PACKAGE_PIN A9 IOSTANDARD LVCMOS33} [get_ports uart_rx_i]
+set_property -dict {PACKAGE_PIN D10 IOSTANDARD LVCMOS33} [get_ports uart_tx_o]
+set_property -dict {PACKAGE_PIN H5 IOSTANDARD LVCMOS33} [get_ports {led[0]}]
+set_property -dict {PACKAGE_PIN J5 IOSTANDARD LVCMOS33} [get_ports {led[1]}]
+set_property -dict {PACKAGE_PIN T9 IOSTANDARD LVCMOS33} [get_ports {led[2]}]
+
+
+================================================================================
+FILE: build_arty_a7.tcl
+================================================================================
+
+set root [file normalize [file dirname [info script]]]
+set out [file join $root build arty_a7_100t]
+set part xc7a100tcsg324-1
+
+if {![file exists [file join $out instruction_memory.sv]]} {
+    error "Run bash firmware/build_arty_a7.sh first."
+}
+
+set_param general.maxThreads 8
+set files [open [file join $root filelist_soc.f] r]
+while {[gets $files line] >= 0} {
+    set line [string trim $line]
+    if {$line eq "" || [string match "#*" $line]} { continue }
+    if {$line eq "RV32I_Single_Cycle/instruction_memory.sv"} {
+        read_verilog -sv [file join $out instruction_memory.sv]
+    } elseif {$line ne "soc_top.sv"} {
+        read_verilog -sv [file join $root $line]
+    }
+}
+close $files
+read_verilog -sv [file join $root soc_top.sv]
+read_verilog -sv [file join $root arty_a7_top.sv]
+read_xdc [file join $root arty_a7_100t.xdc]
+
+synth_design -top arty_a7_top -part $part -flatten_hierarchy rebuilt
+opt_design
+place_design
+phys_opt_design
+route_design
+
+report_timing_summary -file [file join $out timing_summary.rpt]
+report_utilization -file [file join $out utilization.rpt]
+report_clock_utilization -file [file join $out clocks.rpt]
+
+set paths [get_timing_paths -delay_type max -max_paths 1]
+if {[llength $paths] == 0} { error "No timed setup path; inspect constraints." }
+set slack [get_property SLACK [lindex $paths 0]]
+puts "Arty A7 routed setup worst slack: ${slack} ns at 47.619 MHz"
+if {$slack < 0} { error "Routed timing failed; bitstream not written." }
+
+write_checkpoint -force [file join $out arty_a7_100t_routed.dcp]
+write_bitstream -force [file join $out arty_a7_100t.bit]
+puts "Bitstream: [file join $out arty_a7_100t.bit]"
+
+
+================================================================================
+FILE: program_arty_a7.tcl
+================================================================================
+
+set root [file normalize [file dirname [info script]]]
+set bitstream [file join $root build arty_a7_100t arty_a7_100t.bit]
+if {[llength $argv] > 0} { set bitstream [file normalize [lindex $argv 0]] }
+if {![file exists $bitstream]} { error "Bitstream missing: $bitstream" }
+
+open_hw_manager
+connect_hw_server -url localhost:3121
+open_hw_target
+set devices [get_hw_devices -filter {PART == "xc7a100t"}]
+if {[llength $devices] != 1} {
+    error "Expected one xc7a100t device; found [llength $devices]: $devices"
+}
+set device [lindex $devices 0]
+current_hw_device $device
+set_property PROGRAM.FILE $bitstream $device
+program_hw_devices $device
+puts "Programmed $device with $bitstream"
+close_hw_manager
+
+
+================================================================================
+FILE: firmware/build_arty_a7.sh
+================================================================================
+
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+build_dir="${project_root}/build/arty_a7_100t"
+mkdir -p "${build_dir}"
+
+if command -v riscv32-unknown-elf-gcc >/dev/null 2>&1; then
+    cross=riscv32-unknown-elf
+elif command -v riscv64-unknown-elf-gcc >/dev/null 2>&1; then
+    cross=riscv64-unknown-elf
+else
+    echo 'RISC-V bare-metal compiler is required.' >&2
+    exit 1
+fi
+
+build_image() {
+    local stem="$1" address="$2" source="$3" define="$4"
+    "${cross}-gcc" -march=rv32i -mabi=ilp32 -nostdlib -nostartfiles \
+        -Wl,-Ttext="${address}" -Wl,-e,start -Wl,--no-relax \
+        ${define} -o "${build_dir}/${stem}.elf" "${source}"
+    "${cross}-objcopy" -O binary "${build_dir}/${stem}.elf" "${build_dir}/${stem}.bin"
+    "${cross}-objdump" -D -M no-aliases,numeric "${build_dir}/${stem}.elf" > "${build_dir}/${stem}.dump"
+    python3 - "${build_dir}/${stem}.bin" "${build_dir}/${stem}.hex" <<'PY'
+from pathlib import Path
+import sys
+
+data = Path(sys.argv[1]).read_bytes()
+if not data or len(data) % 4:
+    raise SystemExit("Firmware image must be nonempty and word aligned")
+Path(sys.argv[2]).write_text("".join(
+    f"{int.from_bytes(data[i:i+4], 'little'):08x}\n"
+    for i in range(0, len(data), 4)
+))
+PY
+}
+
+build_image boot 0x00000000 "${project_root}/firmware/uart_bootloader.S" -DBOARD_UART_DIVIDER=51
+build_image payload 0x00010000 "${project_root}/firmware/uart_payload.S" ''
+python3 "${project_root}/firmware/gen_hardcoded_boot_rom.py" \
+    "${build_dir}/boot.hex" "${build_dir}/instruction_memory.sv"
+
+payload_size=$(stat -c %s "${build_dir}/payload.bin")
+if (( payload_size > 1024 )); then
+    echo "Payload is ${payload_size} bytes; Instruction SRAM holds 1024." >&2
+    exit 1
+fi
+echo "Arty firmware: ${payload_size} payload bytes; boot ROM and UART at 115200 baud."
+
+
+================================================================================
+FILE: firmware/arty_uart_boot.py
+================================================================================
+
+#!/usr/bin/env python3
+"""Load the AES test via Arty USB-UART and verify its result byte."""
+
+import argparse
+import struct
+import sys
+import time
+from pathlib import Path
+
+import serial
+
+AES_PLAINTEXT = "00112233445566778899aabbccddeeff"
+AES_KEY = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+AES_CIPHERTEXT = "8ea2b7ca516745bfeafc49904b496089"
+
+
+def receive(port: serial.Serial, expected: bytes, deadline: float, description: str) -> None:
+    while time.monotonic() < deadline:
+        byte = port.read(1)
+        if not byte:
+            continue
+        if byte == expected:
+            print(f"[OK] FPGA -> PC: {byte!r} | {description}", flush=True)
+            return
+        if byte in (b"E", b"F"):
+            raise RuntimeError(f"SoC reported failure: {byte!r}")
+    raise TimeoutError(f"No {expected!r} received before timeout")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--port", default="/dev/ttyUSB1")
+    parser.add_argument("--timeout", type=float, default=180.0)
+    parser.add_argument("--payload", type=Path, default=Path(__file__).resolve().parents[1] / "build/arty_a7_100t/payload.bin")
+    args = parser.parse_args()
+
+    payload = args.payload.read_bytes()
+    if not payload or len(payload) > 1024 or len(payload) % 4:
+        parser.error("payload must contain 1..1024 word-aligned bytes")
+    word_count = len(payload) // 4
+    packet = b"BOOT" + struct.pack("<HI", word_count, 0x00010000) + payload + bytes([sum(payload) & 0xFF])
+
+    deadline = time.monotonic() + args.timeout
+    started = time.monotonic()
+    with serial.Serial(args.port, 115200, bytesize=8, parity="N", stopbits=1, timeout=0.2, write_timeout=5) as port:
+        print("=" * 72, flush=True)
+        print(" ARTY A7-100T | RV32I + AES-256 UART DEMO", flush=True)
+        print("=" * 72, flush=True)
+        print(f"[INFO] UART port     : {args.port}", flush=True)
+        print("[INFO] UART format   : 115200 baud, 8N1", flush=True)
+        print(f"[INFO] Payload       : {args.payload}", flush=True)
+        print(f"[INFO] Firmware size : {len(payload)} bytes ({word_count} words)", flush=True)
+        print("[INFO] Entry point   : 0x00010000", flush=True)
+        print(f"[INFO] Checksum      : 0x{packet[-1]:02x}", flush=True)
+        print(f"[AES] Plaintext      : {AES_PLAINTEXT}", flush=True)
+        print(f"[AES] Key            : {AES_KEY}", flush=True)
+        print(f"[AES] Expected CT    : {AES_CIPHERTEXT}", flush=True)
+        print("-" * 72, flush=True)
+        print("[1/4] Waiting for FPGA bootloader ready signal 'R'...", flush=True)
+        receive(port, b"R", deadline, "bootloader ready")
+        print("[2/4] Sending AES firmware payload over USB-UART...", flush=True)
+        port.write(packet)
+        port.flush()
+        print(f"[OK] Host -> FPGA: {len(packet)} bytes transmitted", flush=True)
+        print("[3/4] Waiting for checksum acknowledgement 'K'...", flush=True)
+        receive(port, b"K", deadline, "payload checksum accepted")
+        print("[4/4] Waiting for AES-256 result 'P'...", flush=True)
+        receive(port, b"P", deadline, "AES ciphertext matches expected value")
+    elapsed = time.monotonic() - started
+    print("-" * 72, flush=True)
+    print(" RESULT: PASS", flush=True)
+    print(" AES-256 known-answer test completed successfully.", flush=True)
+    print(f" Plaintext          : {AES_PLAINTEXT}", flush=True)
+    print(f" Key                : {AES_KEY}", flush=True)
+    print(f" Expected ciphertext: {AES_CIPHERTEXT}", flush=True)
+    print(f" FPGA ciphertext    : {AES_CIPHERTEXT}", flush=True)
+    print(" FPGA returned the required result character: 'P'.", flush=True)
+    print(f" Total elapsed time: {elapsed:.2f} s", flush=True)
+    print("=" * 72, flush=True)
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (OSError, RuntimeError, TimeoutError, serial.SerialException) as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+================================================================================
+FILE: firmware/uart_bootloader.S
+================================================================================
+
+# =============================================================================
+# Minimal UART Boot ROM firmware for the current RV32I Secure SoC
+#
+# UART protocol, all multi-byte fields are little-endian:
+#   Host waits for     : 'R' (0x52)
+#   Host sends         : 'B' 'O' 'O' 'T'
+#   Host sends         : word_count[15:0]
+#   Host sends         : entry_point[31:0]
+#   Host sends         : word_count * 4 payload bytes
+#   Host sends         : checksum8 = sum(payload bytes) modulo 256
+#   Boot ROM replies   : 'K' (0x4b) and jumps, or 'E' (0x45) on error
+#
+# Fixed memory map:
+#   UART               : 0x1000_0000
+#   Instruction SRAM   : 0x0001_0000 - 0x0001_03ff
+#
+# Register allocation:
+#   x8  : UART base
+#   x9  : payload word count
+#   x18 : entry point
+#   x19 : current Instruction SRAM write pointer
+#   x20 : remaining word count
+#   x21 : additive checksum accumulator
+#   x10 : uart_getc return / uart_putc argument
+#   x1  : subroutine return address
+# =============================================================================
+
+.section .text
+.option norvc
+.global start
+
+start:
+    # UART_BASE = 0x1000_0000
+    lui   x8, 0x10000
+
+#ifdef BOARD_UART_DIVIDER
+    # (1000/21) MHz / (8 * (51 + 1)) = 114468.9 baud (0.63% below 115200).
+    addi  x5, x0, BOARD_UART_DIVIDER
+    sw    x5, 16(x8)
+#else
+    # Fast simulation setting, used by the existing RTL testbench.
+    sw    x0, 16(x8)
+#endif
+
+    # CONTROL[1:0] = RX_EN | TX_EN
+    addi  x5, x0, 3
+    sw    x5, 12(x8)
+
+    # Tell the host that Boot ROM is ready.
+    addi  x10, x0, 0x52          # 'R'
+    jal   x1, uart_putc
+
+    # -------------------------------------------------------------------------
+    # Receive and validate magic "BOOT".
+    # -------------------------------------------------------------------------
+    jal   x1, uart_getc
+    addi  x5, x0, 0x42           # 'B'
+    bne   x10, x5, boot_error
+
+    jal   x1, uart_getc
+    addi  x5, x0, 0x4f           # 'O'
+    bne   x10, x5, boot_error
+
+    jal   x1, uart_getc
+    addi  x5, x0, 0x4f           # 'O'
+    bne   x10, x5, boot_error
+
+    jal   x1, uart_getc
+    addi  x5, x0, 0x54           # 'T'
+    bne   x10, x5, boot_error
+
+    # -------------------------------------------------------------------------
+    # Receive word_count as uint16 little-endian. Valid range is 1..256.
+    # -------------------------------------------------------------------------
+    jal   x1, uart_getc
+    addi  x9, x10, 0
+
+    jal   x1, uart_getc
+    slli  x5, x10, 8
+    or    x9, x9, x5
+
+    beq   x9, x0, boot_error
+    addi  x5, x0, 256
+    bltu  x5, x9, boot_error      # Error when 256 < word_count.
+
+    # -------------------------------------------------------------------------
+    # Receive 32-bit entry point, little-endian.
+    # -------------------------------------------------------------------------
+    jal   x1, uart_getc
+    addi  x18, x10, 0
+
+    jal   x1, uart_getc
+    slli  x5, x10, 8
+    or    x18, x18, x5
+
+    jal   x1, uart_getc
+    slli  x5, x10, 16
+    or    x18, x18, x5
+
+    jal   x1, uart_getc
+    slli  x5, x10, 24
+    or    x18, x18, x5
+
+    # Entry must be aligned and inside the 1-KiB Instruction SRAM window.
+    lui   x19, 0x00010            # 0x0001_0000
+    bltu  x18, x19, boot_error
+    addi  x5, x19, 1024           # First address outside Instruction SRAM.
+    bgeu  x18, x5, boot_error
+    andi  x5, x18, 3
+    bne   x5, x0, boot_error
+
+    addi  x20, x9, 0              # remaining_words = word_count
+    addi  x21, x0, 0              # checksum = 0
+
+payload_loop:
+    # Byte 0
+    jal   x1, uart_getc
+    addi  x6, x10, 0
+    add   x21, x21, x10
+
+    # Byte 1
+    jal   x1, uart_getc
+    add   x21, x21, x10
+    slli  x7, x10, 8
+    or    x6, x6, x7
+
+    # Byte 2
+    jal   x1, uart_getc
+    add   x21, x21, x10
+    slli  x7, x10, 16
+    or    x6, x6, x7
+
+    # Byte 3
+    jal   x1, uart_getc
+    add   x21, x21, x10
+    slli  x7, x10, 24
+    or    x6, x6, x7
+
+    # Full-word store to executable SRAM through the normal CPU AXI path.
+    sw    x6, 0(x19)
+    addi  x19, x19, 4
+    addi  x20, x20, -1
+    bne   x20, x0, payload_loop
+
+    # -------------------------------------------------------------------------
+    # Validate checksum, acknowledge, and transfer control to the payload.
+    # -------------------------------------------------------------------------
+    andi  x21, x21, 255
+    jal   x1, uart_getc
+    bne   x10, x21, boot_error
+
+    addi  x10, x0, 0x4b          # 'K'
+    jal   x1, uart_putc
+
+    jalr  x0, 0(x18)
+
+boot_error:
+    addi  x10, x0, 0x45          # 'E'
+    jal   x1, uart_putc
+
+boot_error_loop:
+    jal   x0, boot_error_loop
+
+# -----------------------------------------------------------------------------
+# uart_getc
+#   Blocks until STATUS.RX_VALID is one, then reads RXDATA.
+#   Returns zero-extended byte in x10. Clobbers x5.
+# -----------------------------------------------------------------------------
+uart_getc:
+uart_getc_poll:
+    lw    x5, 8(x8)
+    andi  x5, x5, 2
+    beq   x5, x0, uart_getc_poll
+    lw    x10, 4(x8)
+    andi  x10, x10, 255
+    jalr  x0, 0(x1)
+
+# -----------------------------------------------------------------------------
+# uart_putc
+#   Blocks until STATUS.TX_READY is one, then writes x10[7:0] to TXDATA.
+#   Clobbers x5.
+# -----------------------------------------------------------------------------
+uart_putc:
+uart_putc_poll:
+    lw    x5, 8(x8)
+    andi  x5, x5, 1
+    beq   x5, x0, uart_putc_poll
+    sw    x10, 0(x8)
+    jalr  x0, 0(x1)
+
+
+================================================================================
+FILE: firmware/uart_payload.S
+================================================================================
+
+# =============================================================================
+# UART-loaded AES-256 known-answer test.
+#
+# Link/run address : Instruction SRAM 0x0001_0000
+# AES MMIO base    : 0x2000_0000
+# Result mirror    : Shared SRAM 0x0000_0040 .. 0x0000_004c
+#
+# NIST AES-256 vector:
+#   key        = 000102030405060708090a0b0c0d0e0f
+#                101112131415161718191a1b1c1d1e1f
+#   plaintext  = 00112233445566778899aabbccddeeff
+#   ciphertext = 8ea2b7ca516745bfeafc49904b496089
+#
+# Completion convention used by tb_soc_uart_boot.sv:
+#   x31 = 1: PASS
+#   x31 = 2: FAIL
+# =============================================================================
+
+.section .text
+.option norvc
+.global start
+
+start:
+    addi  x31, x0, 0
+
+    # x10 = AES MMIO base 0x2000_0000.
+    lui   x10, 0x20000
+
+    # Plaintext words PT0..PT3.
+    lui   x5,  0x00112
+    addi  x5,  x5, 0x233
+    sw    x5,  0x10(x10)
+
+    lui   x5,  0x44556
+    addi  x5,  x5, 0x677
+    sw    x5,  0x14(x10)
+
+    lui   x5,  0x8899b
+    addi  x5,  x5, -0x545
+    sw    x5,  0x18(x10)
+
+    lui   x5,  0xccddf
+    addi  x5,  x5, -0x101
+    sw    x5,  0x1c(x10)
+
+    # AES-256 key words KEY0..KEY7.
+    lui   x5,  0x00010
+    addi  x5,  x5, 0x203
+    sw    x5,  0x20(x10)
+
+    lui   x5,  0x04050
+    addi  x5,  x5, 0x607
+    sw    x5,  0x24(x10)
+
+    lui   x5,  0x08091
+    addi  x5,  x5, -0x5f5
+    sw    x5,  0x28(x10)
+
+    lui   x5,  0x0c0d1
+    addi  x5,  x5, -0x1f1
+    sw    x5,  0x2c(x10)
+
+    lui   x5,  0x10111
+    addi  x5,  x5, 0x213
+    sw    x5,  0x30(x10)
+
+    lui   x5,  0x14151
+    addi  x5,  x5, 0x617
+    sw    x5,  0x34(x10)
+
+    lui   x5,  0x18192
+    addi  x5,  x5, -0x5e5
+    sw    x5,  0x38(x10)
+
+    lui   x5,  0x1c1d2
+    addi  x5,  x5, -0x1e1
+    sw    x5,  0x3c(x10)
+
+    # CONTROL.START = 1.
+    addi  x5,  x0, 1
+    sw    x5,  0x00(x10)
+
+poll_aes:
+    lw    x6,  0x04(x10)
+    andi  x6,  x6, 2
+    beq   x6,  x0, poll_aes
+
+    # Read, mirror and compare CT0.
+    lw    x11, 0x40(x10)
+    sw    x11, 0x40(x0)
+    lui   x12, 0x8ea2b
+    addi  x12, x12, 0x7ca
+    bne   x11, x12, fail
+
+    # CT1.
+    lw    x11, 0x44(x10)
+    sw    x11, 0x44(x0)
+    lui   x12, 0x51674
+    addi  x12, x12, 0x5bf
+    bne   x11, x12, fail
+
+    # CT2.
+    lw    x11, 0x48(x10)
+    sw    x11, 0x48(x0)
+    lui   x12, 0xeafc5
+    addi  x12, x12, -0x670
+    bne   x11, x12, fail
+
+    # CT3.
+    lw    x11, 0x4c(x10)
+    sw    x11, 0x4c(x0)
+    lui   x12, 0x4b496
+    addi  x12, x12, 0x089
+    bne   x11, x12, fail
+
+pass:
+    addi  x31, x0, 1
+    addi  x5, x0, 0x50           # 'P': AES result matches every word.
+    jal   x1, report_result
+
+pass_loop:
+    jal   x0, pass_loop
+
+fail:
+    addi  x31, x0, 2
+    addi  x5, x0, 0x46           # 'F': at least one word differs.
+    jal   x1, report_result
+
+fail_loop:
+    jal   x0, fail_loop
+
+# The bootloader enabled UART at 115200 baud before jumping here. Poll the
+# transmitter so the result byte cannot be dropped while 'K' is still leaving.
+report_result:
+    lui   x8, 0x10000
+report_wait:
+    lw    x6, 8(x8)
+    andi  x6, x6, 1
+    beq   x6, x0, report_wait
+    sw    x5, 0(x8)
+    jalr  x0, 0(x1)
+

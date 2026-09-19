@@ -11,4 +11,5 @@ sim/*/work/
 *.dcp
 *.rpt
 *.wdb
-
+build/
+__pycache__/
